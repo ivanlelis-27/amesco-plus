@@ -43,6 +43,8 @@
   margin-top: -1rem;
   padding: 1.5rem;
   border-radius: 12px;
+  box-sizing: border-box;
+
   .user-id {
     font-size: 1rem;
     font-weight: 600;
@@ -83,7 +85,8 @@
     gap: 1rem;
 
     .form-group {
-      flex: 1;
+      flex: 1 1 0;
+      min-width: 0; // Allows flex children to shrink properly
     }
   }
 
@@ -110,4 +113,120 @@
   font-size: 0.9rem;
   color: #777;
   text-align: center;
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+  .header {
+    padding: 1.2rem 0.5rem 1rem;
+
+    .register-title {
+      font-size: 1.3rem;
+    }
+
+    .logo {
+      max-width: 110px;
+    }
+
+    .subtitle {
+      font-size: 0.85rem;
+      max-width: 98%;
+    }
+  }
+
+  .form-box {
+    max-width: 98vw;
+    padding: 1rem;
+
+    .user-id {
+      font-size: 0.95rem;
+    }
+
+    .form-group label {
+      font-size: 0.85rem;
+    }
+
+    .form-group input {
+      font-size: 0.9rem;
+      padding: 0.6rem;
+    }
+
+    .form-row {
+      gap: 0.5rem;
+    }
+
+    .register-btn {
+      font-size: 0.95rem;
+      padding: 0.7rem;
+    }
+  }
+}
+
+.footer-text {
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  color: #777;
+  text-align: center;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: inherit;
+  box-shadow: none;
+
+  &:hover,
+  &:focus,
+  &:active {
+    background: none;
+    color: #777;
+    outline: none;
+  }
+}
+
+
+@media (max-width: 400px) {
+  .header {
+    padding: 0.7rem 0.2rem 0.7rem;
+
+    .register-title {
+      font-size: 1rem;
+    }
+
+    .logo {
+      max-width: 80px;
+    }
+
+    .subtitle {
+      font-size: 0.75rem;
+    }
+  }
+
+  .form-box {
+    max-width: 99vw;
+    padding: 0.5rem;
+
+    .user-id {
+      font-size: 0.85rem;
+    }
+
+    .form-group label {
+      font-size: 0.8rem;
+    }
+
+    .form-group input {
+      font-size: 0.8rem;
+      padding: 0.5rem;
+    }
+
+    .register-btn {
+      font-size: 0.85rem;
+      padding: 0.5rem;
+    }
+  }
+
+  .footer-text {
+    font-size: 0.7rem;
+    margin-top: 0.7rem;
+  }
 }

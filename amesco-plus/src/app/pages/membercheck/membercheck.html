@@ -10,14 +10,20 @@
   <!-- Question -->
   <p class="question">Are you an existing member?</p>
 
-  <!-- Member ID Input -->
   <div class="form-group">
-    <input type="text" placeholder="Type your Member ID here" />
+    <input id="memberIdInput" type="text" placeholder="Type your Member ID here" #memberInput
+      (input)="memberId = memberInput.value" />
+  </div>
+  <div class="validation-message-container">
+    <div id="validationMessage" class="validation-message" *ngIf="showValidation">
+      We need to check your Member ID
+    </div>
   </div>
 
   <!-- Buttons -->
-  <button class="btn primary">YES I AM</button>
-  <button class="btn secondary">I WANT TO BE A MEMBER</button>
+  <button class="btn primary" (click)="onYesClick($event)">YES I AM</button>
+  <button class="btn secondary" (click)="goToRegister()">I WANT TO BE A MEMBER</button>
+  <button class="btn secondary account-btn">ALREADY HAVE AN ACCOUNT</button>
 
   <!-- Footer -->
   <p class="footer">Powered by: PerksNow</p>

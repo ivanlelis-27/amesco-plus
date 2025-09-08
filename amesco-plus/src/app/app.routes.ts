@@ -4,6 +4,7 @@ import { Login } from './pages/login/login';
 import { Register } from './pages/register/register';
 import { PrivacyComponent } from './pages/privacy/privacy';
 import { Membercheck } from './pages/membercheck/membercheck';
+import { ForgotPassword } from './pages/forgot-password/forgot-password';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'welcome', pathMatch: 'full' },
@@ -12,4 +13,5 @@ export const routes: Routes = [
   { path: 'register', component: Register },
   { path: 'privacy', component: PrivacyComponent },
   { path: 'membercheck', component: Membercheck },
+  { path: 'forgot-password', component: ForgotPassword },
 ];
