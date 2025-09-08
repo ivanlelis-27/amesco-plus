@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Register } from '../register/register';
+import { Login } from '../login/login';
 
 @Component({
   selector: 'app-membercheck',
@@ -13,12 +14,16 @@ import { Register } from '../register/register';
 })
 
 export class Membercheck {
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
   memberId: string = '';
   showValidation: boolean = false;
 
   goToRegister() {
     this.router.navigate(['/register']);
+  }
+
+  goToLogin() {
+    this.router.navigate(['/login']);
   }
 
   onYesClick(event: Event) {

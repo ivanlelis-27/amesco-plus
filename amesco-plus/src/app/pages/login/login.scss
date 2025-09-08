@@ -80,6 +80,35 @@
     }
   }
 
+  .password-group {
+    position: relative;
+
+    input {
+      width: 100%;
+      padding-right: 2.5rem; // space for the eye icon
+      box-sizing: border-box;
+    }
+
+    .eye-icon {
+      position: relative;
+      right: 0.8rem;
+      top: 20%;
+      transform: translateY(-25%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      display: flex;
+      align-items: center;
+
+      ion-icon {
+        font-size: 1.3rem;
+        color: #222;
+        vertical-align: middle;
+      }
+    }
+  }
+
   .btn-primary {
     width: 100%;
     padding: 0.8rem; // reduced button padding
@@ -132,6 +161,7 @@
   .brand-title {
     font-size: 1.5rem;
   }
+
   .login-card {
     padding: 1.5rem 1rem;
   }

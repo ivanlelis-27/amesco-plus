@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Register } from '../register/register';
+import { Membercheck } from '../membercheck/membercheck';
 import { ForgotPassword } from '../forgot-password/forgot-password';
 import { ValidationService } from '../../validations/login-validation';
 
@@ -13,11 +13,16 @@ import { ValidationService } from '../../validations/login-validation';
 export class Login {
   email: string = '';
   password: string = '';
+  showPassword: boolean = false;
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
 
   constructor(private router: Router, private validationService: ValidationService) { }
 
-  goToRegister() {
-    this.router.navigate(['/register']);
+  goToMemberCheck() {
+    this.router.navigate(['/membercheck']);
   }
 
   goToForgotPassword() {
@@ -29,6 +34,6 @@ export class Login {
     if (validationError) {
       alert(validationError);
       return;
-    }   
-}
+    }
+  }
 }

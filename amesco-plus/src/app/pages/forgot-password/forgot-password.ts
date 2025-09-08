@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Login } from '../login/login';
+import { ForgotPasswordValidationService } from '../../validations/forgot-password-validation';
 
 @Component({
   selector: 'app-forgot-password',
@@ -9,10 +10,19 @@ import { Login } from '../login/login';
   styleUrl: './forgot-password.scss'
 })
 export class ForgotPassword {
-  constructor(private router: Router) { }
+  email: string = '';
+  errorMsg: string | null = null;
+
+  constructor(private router: Router, private forgotPasswordValidationService: ForgotPasswordValidationService) { }
 
   goToLogin() {
     this.router.navigate(['/login']);
+  }
+
+  onSubmit() {
+    this.errorMsg = this.forgotPasswordValidationService.validateEmail(this.email);
+    if (!this.errorMsg) {
+    }
   }
 
 }

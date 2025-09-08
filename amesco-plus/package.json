@@ -32,15 +32,18 @@
     "@angular/router": "^20.2.0",
     "@angular/ssr": "^20.2.2",
     "@capacitor/angular": "^2.0.3",
+    "@capacitor/core": "latest",
+    "@ionic/angular": "^8.7.3",
     "express": "^5.1.0",
+    "ionicons": "^8.0.13",
     "rxjs": "~7.8.0",
-    "tslib": "^2.3.0",
-    "@capacitor/core": "latest"
+    "tslib": "^2.3.0"
   },
   "devDependencies": {
     "@angular/build": "^20.2.2",
     "@angular/cli": "^20.2.2",
     "@angular/compiler-cli": "^20.2.0",
+    "@capacitor/cli": "latest",
     "@types/express": "^5.0.1",
     "@types/jasmine": "~5.1.0",
     "@types/node": "^20.17.19",
@@ -50,7 +53,6 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
-    "typescript": "~5.9.2",
-    "@capacitor/cli": "latest"
+    "typescript": "~5.9.2"
   }
 }
