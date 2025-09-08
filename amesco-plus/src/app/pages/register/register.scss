@@ -10,7 +10,7 @@
 
 .header {
   width: 100%;
-  background: #b71c1c;
+  background: #B50F23;
   color: #fff;
   text-align: center;
   padding: 2rem 1rem 1.5rem;
@@ -51,7 +51,7 @@
     margin-bottom: 1.2rem;
 
     span {
-      color: #b71c1c;
+      color: #B50F23;
     }
   }
 
@@ -74,7 +74,7 @@
       outline: none;
 
       &:focus {
-        border-color: #b71c1c;
+        border-color: #B50F23;
         box-shadow: 0 0 0 2px rgba(183, 28, 28, 0.15);
       }
     }
@@ -93,7 +93,7 @@
   .register-btn {
     width: 100%;
     padding: 0.9rem;
-    background: #b71c1c;
+    background: #B50F23;
     color: #fff;
     font-size: 1rem;
     font-weight: 600;
@@ -103,7 +103,7 @@
     margin-top: 1rem;
 
     &:hover {
-      background: #a11313;
+      background: #B50F23;
     }
   }
 }

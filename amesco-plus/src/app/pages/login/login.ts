@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Membercheck } from '../membercheck/membercheck';
 import { ForgotPassword } from '../forgot-password/forgot-password';
 import { ValidationService } from '../../validations/login-validation';
+import { Dashboard } from '../dashboard/dashboard';
 
 @Component({
   selector: 'app-login',
@@ -27,6 +28,10 @@ export class Login {
 
   goToForgotPassword() {
     this.router.navigate(['/forgot-password']);
+  }
+
+  goToDashboard() {
+    this.router.navigate(['/dashboard']);
   }
 
   onLoginClick() {
