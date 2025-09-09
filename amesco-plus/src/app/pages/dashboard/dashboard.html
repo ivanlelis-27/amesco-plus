@@ -1,38 +1,41 @@
 <div class="dashboard">
 
-    <!-- Header Logo and Tagline -->
     <div class="header">
+        <span class="sync-icon">
+            <ion-icon name="sync-outline"></ion-icon>
+        </span>
+        <button class="qr-icon" (click)="goToGenerateQr()">
+            <ion-icon name="qr-code-outline"></ion-icon>
+        </button>
         <h2 class="brand">amesco<span class="plus">plus</span></h2>
         <p class="tagline">basta amesco, mas kumpleto<br />hanep sa serbisyo</p>
     </div>
 
-    <!-- Halved circle background behind the stacked circles -->
     <div class="halved-circle-bg-1"></div>
-
-    <!-- Halved circle background behind the stacked circles -->
     <div class="halved-circle-bg-2"></div>
 
-    <!-- Left-side stacked circles -->
-    <div class="circle-section" style="position: absolute; left: 24px; top: 80px;">
+    <div class="circle-section">
         <div class="circle points-circle">
             <span class="value">100</span>
-            <span class="label">Points</span>
         </div>
+        <div class="points-label">Earned Points</div>
         <div class="circle redeem-circle">
             <span class="value">Redeem</span>
-            <span class="label">Rewards</span>
         </div>
+        <div class="vouchers-label">Vouchers</div>
         <div class="circle profile-circle">
         </div>
+        <div class="id-number">ID: 588303500-7428</div>
+        <div class="member-name">Juan Dela Cruz</div>
     </div>
 
     <div class="right-circles-section">
-        <div class="small-circle">
+        <button class="small-circle" (click)="goToNotifications()">
             <span class="icon">
                 <ion-icon name="notifications-outline"></ion-icon>
             </span>
-        </div>
-        <div class="small-circle">
+        </button>
+        <div class="small-circle" (click)="goToChangePassword()">
             <span class="icon">
                 <ion-icon name="lock-closed-outline"></ion-icon>
             </span>
@@ -48,4 +51,20 @@
             </span>
         </div>
     </div>
+
+    <div class="carousel-footer">
+        <button class="carousel-btn left" (click)="prevSlide()">
+            <ion-icon name="chevron-back-outline"></ion-icon>
+        </button>
+        <div class="carousel-track">
+            <div class="carousel-slide" *ngFor="let item of carouselItems; let i = index"
+                [class.active]="i === currentSlide">
+                {{ item }}
+            </div>
+        </div>
+        <button class="carousel-btn right" (click)="nextSlide()">
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+        </button>
+    </div>
+
 </div>

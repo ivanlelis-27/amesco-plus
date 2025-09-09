@@ -1,0 +1,37 @@
+.header {
+    background-color: #B50E1F;
+    padding: 2rem;
+    border-bottom: 1px solid #eee;
+}
+
+.title {
+    text-align: center;
+    position: relative;
+    top: 1rem;
+    color: #fff;
+    font-family: 'Merge Pro', sans-serif;
+    font-weight: 300;
+    font-size: 1.2rem;
+}
+
+.refresh-icon {
+    background: none;
+    border: none;
+    box-shadow: none;
+    position: relative;
+    top: 4rem;
+    left: 18.5rem;
+    font-size: 2rem;
+    color: white;
+}
+
+.back-icon {
+    background: none;
+    border: none;
+    box-shadow: none;
+    position: relative;
+    top: 4rem;
+    right: 4.4rem;
+    font-size: 2rem;
+    color: white;
+}

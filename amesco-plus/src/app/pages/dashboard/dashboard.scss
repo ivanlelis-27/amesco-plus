@@ -1,14 +1,23 @@
+html,
+body {
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    overflow-y: auto;
+}
+
 .dashboard {
+    position: relative;
+    min-height: 100vh;
+    max-height: 100vh;
     background: #fff;
     font-family: 'Roboto', sans-serif;
     text-align: center;
     padding: 0;
-    position: relative;
-    min-height: 100vh;
+    overflow: hidden;
 }
 
 .header {
-    margin-top: 2.5rem;
 
     .brand {
         font-size: 2.2rem;
@@ -29,6 +38,28 @@
         margin-bottom: 0.5rem;
         margin-top: -0.3rem;
     }
+}
+
+.sync-icon {
+    background: none;
+    border: none;
+    box-shadow: none;
+    position: relative;
+    top: 2.8rem;
+    right: 9.6rem;
+    font-size: 2rem;
+    color: #F05251;
+}
+
+.qr-icon {
+    background: none;
+    border: none;
+    box-shadow: none;
+    position: relative;
+    top: 2.8rem;
+    left: 9.4rem;
+    font-size: 2rem;
+    color: #F05251;
 }
 
 .halved-circle-bg-1 {
@@ -63,16 +94,16 @@
 .circle-section {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 1rem;
     position: absolute;
     left: 1.5rem;
-    top: 5rem;
+    top: 10rem;
 }
 
 .circle {
     position: relative;
-    margin-bottom: 2rem;
-    top: 5rem;
+    margin-bottom: 0rem;
+    top: 0rem;
     width: 7rem;
     height: 7rem;
     border-radius: 50%;
@@ -81,9 +112,7 @@
     justify-content: center;
     align-items: center;
     box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.10);
-    font-family: 'Roboto', sans-serif;
     font-size: 1rem;
-    font-weight: 500;
     transition: transform 0.2s;
     cursor: pointer;
     background: linear-gradient(135deg, #f8f8f8 60%, #e0e0e0 100%);
@@ -101,10 +130,32 @@
     color: white;
 }
 
+.points-label {
+    position: relative;
+    left: 8.2rem;
+    top: -5rem;
+    font-size: 1.2rem;
+    color: #AF1223;
+    font-weight: 500;
+    background: none;
+    z-index: 2;
+}
+
 .redeem-circle {
     background: radial-gradient(circle, #AF1223 30%, #A3121F 40%, #820A20 100%);
     border-color: white;
     color: white;
+}
+
+.vouchers-label {
+    position: relative;
+    left: 7rem;
+    top: -5rem;
+    font-size: 1.2rem;
+    color: #AF1223;
+    font-weight: 500;
+    background: none;
+    z-index: 2;
 }
 
 .profile-circle {
@@ -113,10 +164,39 @@
     color: #33691e;
 }
 
+.id-number {
+    position: relative;
+    left: 8rem;
+    top: -5rem;
+    font-size: 0.8rem;
+    color: #AF1223;
+    font-weight: 500;
+    background: none;
+    z-index: 2;
+}
+
+.member-name {
+    position: relative;
+    left: 0rem;
+    top: -2rem;
+    font-size: 1rem;
+    color: #AF1223;
+    font-weight: 500;
+    background: none;
+    z-index: 2;
+}
+
 .circle .value {
     font-size: 1.2rem;
-    font-weight: bold;
+    font-weight: normal;
     margin-bottom: 0.125rem;
+}
+
+.redeem-circle .value {
+    position: relative;
+    top: 1rem;
+    font-weight: normal;
+    font-size: 0.8rem;
 }
 
 .circle .label {
@@ -128,8 +208,8 @@
 
 .right-circles-section {
     position: absolute;
-    top: 6rem;
-    right: 1.5rem;
+    top: 12rem;
+    right: 0.2rem;
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
@@ -138,9 +218,9 @@
 
 .small-circle {
     position: relative;
-    top: 7rem;
-    right: -1.4rem;
-    margin-bottom: 1.4rem;
+    top: 0rem;
+    right: 0rem;
+    margin-bottom: 2.4rem;
     width: 3.5rem;
     height: 3.5rem;
     border-radius: 50%;
@@ -156,4 +236,141 @@
     top: 0.1rem;
     font-size: 1.6rem;
     color: #fff;
+}
+
+.carousel-footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2.5rem 0;
+    z-index: 10;
+}
+
+.carousel-btn {
+    background: #cc0000;
+    border: none;
+    color: #fff;
+    border-radius: 50%;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    cursor: pointer;
+    margin: 0 1rem;
+}
+
+.carousel-track {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 12rem;
+    overflow: hidden;
+}
+
+.carousel-slide {
+    display: none;
+    width: 100%;
+    text-align: center;
+    font-size: 1.1rem;
+    color: #cc0000;
+    font-weight: 500;
+    font-family: 'Roboto', sans-serif;
+}
+
+.carousel-slide.active {
+    display: block;
+}
+
+@media only screen and (max-width: 400px) {
+
+    .dashboard {
+        overflow: hidden;
+        min-height: 100vh;
+        max-height: 100vh;
+    }
+
+    .header .brand {
+        font-size: 1.8rem;
+    }
+
+    .header .tagline {
+        font-size: 0.85rem;
+    }
+
+    .sync-icon {
+        top: 2.4rem;
+        right: 8.6rem;
+        font-size: 1.8rem;
+    }
+
+    .qr-icon {
+        top: 2.5rem;
+        left: 8.8rem;
+        font-size: 1.8rem;
+    }
+
+    .circle-section {
+        top: 4rem;
+        transform: scale(0.9);
+        margin-top: 3rem;
+        gap: 0.6rem;
+
+    }
+
+    .circle {
+        width: 6.2rem;
+        height: 6.2rem;
+    }
+
+    .points-label,
+    .vouchers-label {
+        font-size: 1rem;
+        left: 6.5rem;
+        top: -4rem;
+    }
+
+    .id-number {
+        font-size: 0.75rem;
+        left: 7rem;
+        top: -4rem;
+    }
+
+    .member-name {
+        font-size: 0.9rem;
+        top: -1.5rem;
+    }
+
+    .right-circles-section {
+        transform: scale(0.85);
+        top: 9rem;
+        gap: 0.6rem;
+    }
+
+    .small-circle {
+        width: 3rem;
+        height: 3rem;
+        margin-bottom: 1.6rem;
+    }
+
+    .halved-circle-bg-1 {
+        transform: scale(0.9);
+        top: -0.8rem;
+        left: -30.2rem;
+    }
+
+    .halved-circle-bg-2 {
+        transform: scale(0.9);
+        top: 0rem;
+    }
+
+    .carousel-footer {
+        padding: 2rem 0 !important;
+    }
 }

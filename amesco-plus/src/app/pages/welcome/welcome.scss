@@ -1,6 +1,6 @@
 .welcome-container {
   height: 100vh;
-  background: #c8102e; // Amesco red
+  background: #B50E1F;
   color: #fff;
   display: flex;
   flex-direction: column;
@@ -8,55 +8,77 @@
   align-items: center;
   text-align: center;
   padding: 30px 20px;
-  font-family: 'Helvetica Neue', Arial, sans-serif;
 }
 
 .welcome-title {
-  font-size: 2.2rem;
-  font-weight: 700;
+  font-size: 2.5rem;
+  font-weight: bold;
   margin-bottom: 0.3rem;
   letter-spacing: 0.5px;
+  font-family: 'Nunito', sans-serif;
+
 }
 
 .highlight {
-  color: #ffdd00; // yellow accent
+  color: #ffdd00;
 }
 
 .app-name {
-  font-size: 1.8rem;
-  font-weight: 800;
+  font-size: 6rem;
+  font-weight: bold;
+  font-weight: 700;
   margin-bottom: 0.8rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-family: 'Nunito', sans-serif;
+  letter-spacing: -0.4rem;
 
   .plus {
-    color: #00bfff; // light blue accent
+    position: relative;
+    top: -2.2rem;
+    color: #00bfff;
+    font-size: 4.5rem;
+    font-weight: 900;
+    margin-top: 0.2rem;
+    align-self: flex-end;
+    font-family: 'Nunito', sans-serif;
+    letter-spacing: 1px;
   }
 }
 
 .tagline {
-  font-size: 0.95rem;
+  position: relative;
+  top: -1.6rem;
+  font-size: 1.3rem;
+  font-weight: 500;
+  font-family: 'Nunito', sans-serif;
   margin: 0 0 2.5rem 0;
   line-height: 1.5;
   max-width: 300px;
 }
 
 .button-group {
-  margin-top: auto; // pushes buttons & footer down
+  margin-top: auto;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 1.2rem;
   width: 100%;
-  max-width: 280px;
+  max-width: 22rem;
+  font-family: 'Arial', sans-serif;
+  font-weight: 300;
 }
 
 .action-btn {
   background: transparent;
-  border: 2px solid #fff;
+  border: 1px solid #fff;
   border-radius: 25px;
-  padding: 14px 0;
+  padding: 0.7rem 0;
   font-size: 1rem;
   letter-spacing: 1px;
   color: #fff;
-  font-weight: 600;
+  font-weight: 300;
   cursor: pointer;
   transition: all 0.3s ease;
 

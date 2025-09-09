@@ -40,5 +40,6 @@ export class Login {
       alert(validationError);
       return;
     }
+    this.goToDashboard();
   }
 }
