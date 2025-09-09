@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { Notifications } from './notifications';
 
+
 @NgModule({
     declarations: [Notifications],
     imports: [

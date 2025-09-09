@@ -1,4 +1,4 @@
-<div class="dashboard">
+<div class="dashboard" @slideInLeft>
 
     <div class="header">
         <span class="sync-icon">
@@ -40,7 +40,7 @@
                 <ion-icon name="lock-closed-outline"></ion-icon>
             </span>
         </div>
-        <div class="small-circle">
+        <div class="small-circle" (click)="goToMemberProfile()">
             <span class="icon">
                 <ion-icon name="person-outline"></ion-icon>
             </span>

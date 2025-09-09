@@ -9,6 +9,7 @@ import { Dashboard } from './pages/dashboard/dashboard';
 import { GenerateQr } from './pages/generate-qr/generate-qr';
 import { Notifications } from './pages/notifications/notifications';
 import { ChangePassword } from './pages/change-password/change-password';
+import { MemberProfile } from './pages/member-profile/member-profile';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'welcome', pathMatch: 'full' },
@@ -21,5 +22,6 @@ export const routes: Routes = [
   { path: 'dashboard', component: Dashboard },
   { path: 'generate-qr', component: GenerateQr },
   { path: 'notifications', component: Notifications },
-  { path: 'change-password', component: ChangePassword }
+  { path: 'change-password', component: ChangePassword },
+  { path: 'member-profile', component: MemberProfile}
 ];

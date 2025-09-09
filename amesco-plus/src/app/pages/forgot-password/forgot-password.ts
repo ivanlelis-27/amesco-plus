@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Login } from '../login/login';
 import { ForgotPasswordValidationService } from '../../validations/forgot-password-validation';
 
 @Component({
   selector: 'app-forgot-password',
   standalone: false,
   templateUrl: './forgot-password.html',
-  styleUrl: './forgot-password.scss'
+  styleUrl: './forgot-password.scss',
 })
 export class ForgotPassword {
   email: string = '';
