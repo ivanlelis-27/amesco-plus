@@ -13,6 +13,7 @@ import { Faqs } from './pages/faqs/faqs';
 import { Terms } from './pages/terms/terms';
 import { Privacy } from './pages/privacy/privacy';
 import { Unsubscribe } from './pages/unsubscribe/unsubscribe';
+import { MenuModal } from './pages/menu-modal/menu-modal';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'welcome', pathMatch: 'full' },
@@ -29,5 +30,6 @@ export const routes: Routes = [
   { path: 'member-profile', component: MemberProfile },
   { path: 'faqs', component: Faqs },
   { path: 'terms', component: Terms },
-  { path: 'unsubscribe', component: Unsubscribe }
+  { path: 'unsubscribe', component: Unsubscribe },
+  { path: 'menu-modal', component: MenuModal }
 ];

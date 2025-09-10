@@ -1,0 +1,64 @@
+.unsubscribe-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    padding: 2.5rem 1.2rem 1.2rem 1.2rem;
+    background: #fdfbfb;
+}
+
+.amesco-logo {
+    position: relative;
+    height: 8rem;
+    width: 14rem;
+    margin-bottom: 2rem;
+}
+
+.unsubscribe-title {
+    color: #B10D17;
+    text-align: center;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    margin-top: 0;
+}
+
+.unsubscribe-desc {
+    font-family: 'Nunito', sans-serif;
+    color: #444;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 2.5rem;
+    line-height: 1.5;
+}
+
+.unsubscribe-btn {
+    width: 100%;
+    max-width: 20rem;
+    background: #B10D17;
+    color: #fff;
+    font-weight: 700;
+    border: none;
+    border-radius: 0.3rem;
+    padding: 0.8rem 0;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.cancel-btn {
+    width: 100%;
+    max-width: 20rem;
+    background: #fff;
+    color: #B10D17;
+    font-weight: 700;
+    border: 1.5px solid #B10D17;
+    border-radius: 0.3rem;
+    padding: 0.7rem 0;
+    font-size: 1rem;
+    cursor: pointer;
+}

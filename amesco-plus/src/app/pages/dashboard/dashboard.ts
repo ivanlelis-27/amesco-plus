@@ -22,7 +22,25 @@ import { trigger, transition, style, animate } from '@angular/animations';
 export class Dashboard {
   carouselItems = ['Slide 1', 'Slide 2', 'Slide 3'];
   currentSlide = 0;
+  showMenu = false;
+  closingMenu = false;
+
   constructor(private router: Router) { }
+
+  openMenuModal() {
+    this.showMenu = true;
+  }
+
+  startCloseMenu() {
+    this.closingMenu = true;
+  }
+
+  animationDone(event: any) {
+    if (event.toState === 'void') {
+      this.showMenu = false;
+      this.closingMenu = false;
+    }
+  }
 
   goToGenerateQr() {
     this.router.navigate(['/generate-qr']);

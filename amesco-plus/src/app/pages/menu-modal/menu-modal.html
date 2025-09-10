@@ -1,0 +1,34 @@
+<div class="menu-modal-wrapper">
+    <div class="menu-modal-backdrop" (click)="closeMenu()"></div>
+    <div class="menu-modal-sheet" [@slideInUp]="!closingMenu ? 'in' : 'void'"
+        (@slideInUp.done)="onAnimationDone($event)">
+        <button class="menu-row">
+            <ion-icon name="storefront-outline"></ion-icon>
+            <span>AMESCO Branches</span>
+        </button>
+        <button class="menu-row" (click)="goToFaqs()">
+            <ion-icon name="clipboard-outline"></ion-icon>
+            <span>FAQs</span>
+        </button>
+        <button class="menu-row" (click)="goToTerms()">
+            <fa-icon [icon]="faBookOpen"></fa-icon>
+            <span>Terms and Conditions</span>
+        </button>
+        <button class="menu-row" (click)="goToPrivacy()">
+            <fa-icon [icon]="faFingerprint"></fa-icon>
+            <span>Privacy</span>
+        </button>
+        <button class="menu-row">
+            <fa-icon [icon]="faEnvelope"></fa-icon>
+            <span>Contact Us</span>
+        </button>
+        <button class="menu-row" (click)="goToUnsubscribe()">
+            <fa-icon [icon]="faTimesCircle"></fa-icon>
+            <span>Unsubscribe (delete account)</span>
+        </button>
+        <button class="menu-row">
+            <fa-icon [icon]="faSignOutAlt"></fa-icon>
+            <span>Logout</span>
+        </button>
+    </div>
+</div>

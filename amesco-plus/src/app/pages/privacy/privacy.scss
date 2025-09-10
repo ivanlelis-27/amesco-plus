@@ -1,0 +1,45 @@
+.privacy-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    background: #B10D17;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    padding: 2rem 1rem;
+}
+
+.privacy-title {
+    position: inherit;
+    right: 9.5rem;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    flex: 1;
+    text-align: center;
+}
+
+.back-btn {
+    position: relative;
+    top: 0.16rem;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 2rem;
+    margin-right: 1rem;
+    cursor: pointer;
+}
+
+.privacy-section {
+    margin-top: 6rem;
+    font-family: 'Nunito', sans-serif;
+    font-size: small;
+    padding: 1rem;
+}
+
+.privacy-section h4 {
+    position: relative;
+    font-weight: 400;
+}

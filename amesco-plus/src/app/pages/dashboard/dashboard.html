@@ -45,7 +45,7 @@
                 <ion-icon name="person-outline"></ion-icon>
             </span>
         </div>
-        <div class="small-circle">
+        <div class="small-circle" (click)="openMenuModal()">
             <span class="icon">
                 <ion-icon name="menu-outline"></ion-icon>
             </span>
@@ -66,5 +66,7 @@
             <ion-icon name="chevron-forward-outline"></ion-icon>
         </button>
     </div>
-
 </div>
+<app-menu-modal *ngIf="showMenu" [closingMenu]="closingMenu" (close)="startCloseMenu()"
+    (animationDone)="animationDone($event)">
+</app-menu-modal>

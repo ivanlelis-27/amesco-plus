@@ -2,12 +2,24 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { faImage, faPen, faUser, faMobileAlt, faEnvelope, faClipboardList, faBookOpen, faFingerprint, faTimesCircle, faTimes, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { ChangeDetectorRef } from '@angular/core';
+import { trigger, transition, style, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-member-profile',
   standalone: false,
   templateUrl: './member-profile.html',
-  styleUrl: './member-profile.scss'
+  styleUrl: './member-profile.scss',
+  animations: [
+    trigger('slideInLeft', [
+      transition(':enter', [
+        style({ transform: 'translateX(-100%)', opacity: 0 }),
+        animate('300ms ease', style({ transform: 'translateX(0)', opacity: 1 }))
+      ]),
+      transition(':leave', [
+        animate('300ms ease', style({ transform: 'translateX(-100%)', opacity: 0 }))
+      ])
+    ])
+  ]
 })
 export class MemberProfile {
   constructor(private router: Router, private cdr: ChangeDetectorRef) { }

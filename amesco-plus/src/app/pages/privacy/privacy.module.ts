@@ -2,16 +2,17 @@ import { NgModule, } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { Dashboard } from './dashboard';
-import { MenuModalModule } from '../menu-modal/menu-modal.module';
+import { Privacy } from './privacy';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
-    declarations: [Dashboard],
+    declarations: [Privacy],
     imports: [
         CommonModule,
         IonicModule,
         FormsModule,
-        MenuModalModule
-    ]
+        FontAwesomeModule
+    ],
+    exports: [Privacy]
 })
-export class DashboardModule { }
+export class PrivacyModule { }

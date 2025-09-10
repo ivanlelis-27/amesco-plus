@@ -346,3 +346,13 @@ body {
     padding-bottom: 0.7rem;
     margin-bottom: 0.7rem;
 }
+
+.footer-bar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    max-width: 100%;
+    padding: 2.5rem;
+    background: #B10D17;
+}
