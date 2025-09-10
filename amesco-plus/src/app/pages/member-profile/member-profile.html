@@ -1,8 +1,11 @@
 <div class="member-profile">
     <img src="/profile-1.png" alt="Profile Image" class="profile-image">
     <div class="header">
-        <button class="back-button">
+        <button class="back-button" (click)="goBack()">
             <ion-icon name="chevron-back-outline"></ion-icon>
+        </button>
+        <button class="logout-button" (click)="onLogout()">
+            <ion-icon name="log-out-outline"></ion-icon>
         </button>
         <div class="color-filler"></div>
         <h1 class="title">Member Profile</h1>
@@ -10,6 +13,87 @@
             <span class="points-value">0</span>
             <span class="points-label">Points</span>
         </div>
-
+        <div class="user-profile">
+            <div class="outer-yellow-circle">
+                <div class="inner-yellow-circle" (click)="openModal()">
+                    <img *ngIf="profileImageUrl" [src]="profileImageUrl" alt="Profile" class="modal-circle-image" />
+                </div>
+            </div>
+        </div>
     </div>
-</div>
+
+    <div class="profile-modal" *ngIf="showModal">
+        <div class="modal-content">
+            <div class="modal-icon-circle" (click)="openImagePicker()">
+                <fa-icon [icon]="faImage"></fa-icon>
+                <img *ngIf="selectedImageUrl" [src]="selectedImageUrl" alt="Selected"
+                    class="modal-circle-image overlay-image" />
+            </div>
+            <div class="browse-text">Browse</div>
+            <div class="modal-actions">
+                <button class="cancel-btn" (click)="closeModal()">CANCEL</button>
+                <button class="update-btn" (click)="updateProfile()">UPDATE</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="spacer"></div>
+
+    <div class="main-body">
+        <div class="private-info-section">
+            <div class="section-header">
+                <span class="section-title">Private Information</span>
+                <ng-container *ngIf="!isEditing; else editActions">
+                    <fa-icon [icon]="faPen" (click)="onEdit()"></fa-icon>
+                </ng-container>
+                <ng-template #editActions>
+                    <div class="edit-action-icons">
+                        <fa-icon [icon]="faTimes" (click)="onCancelEdit()"></fa-icon>
+                        <fa-icon [icon]="faCheck" (click)="onSaveEdit()"></fa-icon>
+                    </div>
+                </ng-template>
+            </div>
+            <div class="info-row">
+                <fa-icon [icon]="faUser"></fa-icon>
+                <ng-container *ngIf="isEditing; else showName">
+                    <input type="text" [(ngModel)]="firstName" placeholder="First Name" class="edit-input" />
+                    <input type="text" [(ngModel)]="lastName" placeholder="Last Name" class="edit-input" />
+                </ng-container>
+                <ng-template #showName>
+                    <span class="info-text">{{ firstName }} {{ lastName }}</span>
+                </ng-template>
+            </div>
+            <div class="info-row">
+                <fa-icon [icon]="faMobileAlt"></fa-icon>
+                <ng-container *ngIf="isEditing; else showMobile">
+                    <input type="text" [(ngModel)]="mobile" placeholder="Mobile Number" class="edit-input" />
+                </ng-container>
+                <ng-template #showMobile>
+                    <span class="info-text">{{ mobile }}</span>
+                </ng-template>
+            </div>
+            <div class="info-row">
+                <fa-icon [icon]="faEnvelope"></fa-icon>
+                <span class="info-text">juandelacruz@gmail.com</span>
+            </div>
+        </div>
+        <div class="privacy-section" [style.opacity]="isEditing ? '0.5' : '1'">
+            <span class="section-title">Privacy</span>
+            <button class="info-row" (click)="goToFaqs()">
+                <fa-icon [icon]="faClipboardList"></fa-icon>
+                <span class="info-text">FAQ</span>
+            </button>
+            <button class="info-row" (click)="goToTerms()">
+                <fa-icon [icon]="faBookOpen"></fa-icon>
+                <span class="info-text">Terms &amp; Conditions</span>
+            </button>
+            <button class="info-row" (click)="goToPrivacy()">
+                <fa-icon [icon]="faFingerprint"></fa-icon>
+                <span class="info-text">Privacy Policy</span>
+            </button>
+            <button class="info-row" (click)="goToUnsubscribe()">
+                <fa-icon [icon]="faTimesCircle"></fa-icon>
+                <span class="info-text">Unsubscribe</span>
+            </button>
+        </div>
+    </div>

@@ -59,18 +59,33 @@ body {
 .back-button {
     position: relative;
     right: 10.5rem;
-    top: 5.5rem;
+    top: 7.6rem;
     background: none;
     border: none;
     color: #fff;
     font-size: 2rem;
     cursor: pointer;
-    z-index: 2;
+    z-index: 10;
+}
+
+.logout-button {
+    position: relative;
+    top: 5.2rem;
+    right: -9.8rem;
+    background: none;
+    border: black;
+    color: #fff;
+    font-size: 2rem;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .points-circle {
     position: relative;
-    top: 9.3rem;
+    top: 8.4rem;
     right: 7.85rem;
     width: 6rem;
     height: 6rem;
@@ -85,12 +100,249 @@ body {
 
 .points-value {
     color: #B10D17;
+    font-family: 'Nunito', sans-serif;
     font-size: 1.4rem;
     font-weight: 700;
 }
 
 .points-label {
     color: #B10D17;
+    font-family: 'Nunito', sans-serif;
     font-size: 0.9rem;
     font-weight: 500;
+}
+
+.user-profile {
+    position: absolute;
+    right: 1.2rem;
+    bottom: -9rem;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.outer-yellow-circle {
+    width: 8rem;
+    height: 8rem;
+    background: #FFD600;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.inner-yellow-circle {
+    width: 7rem;
+    height: 7rem;
+    background: #FFD600;
+    border-radius: 50%;
+    border: 1px solid #000;
+}
+
+.profile-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+}
+
+.modal-content {
+    background: #fff;
+    border-radius: 0.4rem;
+    padding: 2rem 4.5rem;
+    min-width: 16rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.modal-icon-circle {
+    position: relative;
+    width: 5rem;
+    height: 5rem;
+    background: #EEEEEE;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    cursor: pointer;
+}
+
+.modal-icon-circle fa-icon {
+    font-size: 2.5rem;
+    color: #BDBDBD;
+    z-index: 1;
+    position: relative;
+}
+
+.overlay-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    z-index: 2;
+}
+
+.modal-circle-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+}
+
+.browse-text {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    color: #B10D17;
+    font-weight: 500;
+    font-family: 'Nunito', sans-serif;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 1.2rem;
+    margin-top: 1rem;
+}
+
+.cancel-btn,
+.update-btn {
+    padding: 0.7rem 1.5rem;
+    border-radius: 0.2rem;
+    border: none;
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: 'Nunito', sans-serif;
+}
+
+.cancel-btn {
+    background: none;
+    color: #B10D17;
+}
+
+.update-btn {
+    background: #B10D17;
+    color: #fff;
+}
+
+.spacer {
+    width: 100%;
+    height: 2rem;
+}
+
+.main-body {
+    padding: 2rem 1.5rem;
+    background: #fff;
+    border-radius: 1.2rem;
+    margin-top: 2rem;
+    font-family: 'Nunito', sans-serif;
+}
+
+.private-info-section,
+.privacy-section {
+    margin-bottom: 2rem;
+}
+
+.section-header {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.section-header fa-icon {
+    font-size: 1.3rem;
+    color: blue;
+}
+
+.edit-input {
+    font-size: 1rem;
+    color: blue;
+    padding: 0.3rem 0.8rem;
+    margin-right: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 0.3rem;
+    outline: none;
+    width: 45%;
+}
+
+.edit-action-icons {
+    display: flex;
+    gap: 0.7rem;
+    margin-left: 8.5rem;
+    position: relative;
+    right: 0;
+}
+
+.edit-action-icons fa-icon {
+    font-size: 1.5rem;
+    color: #1976D2;
+    cursor: pointer;
+}
+
+.edit-action-icons fa-icon:first-child {
+    color: #B10D17;
+}
+
+.edit-action-icons fa-icon:last-child {
+    color: #43A047;
+}
+
+.privacy-section .section-title {
+    display: block;
+    margin-bottom: 1rem;
+}
+
+.section-title {
+    white-space: nowrap;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #444;
+}
+
+.info-row {
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 1rem;
+    color: #444;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    padding: 0;
+}
+
+.info-row:focus {
+    outline: none;
+    background: #f5f5f5;
+}
+
+.info-row fa-icon {
+    font-size: 1.3rem;
+    color: #888;
+}
+
+.info-text {
+    font-size: 1rem;
+}
+
+.private-info-section .info-row:not(:last-child) {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 0.7rem;
+    margin-bottom: 0.7rem;
 }

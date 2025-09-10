@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-privacy',
-  imports: [],
+  standalone: false,
   templateUrl: './privacy.html',
   styleUrl: './privacy.scss'
 })
-export class PrivacyComponent {
+export class Privacy {
 
 }
