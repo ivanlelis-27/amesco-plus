@@ -23,28 +23,30 @@
     <div class="form-row">
       <div class="form-group">
         <label for="password">Password</label>
-        <input id="password" type="password" placeholder="Enter Text" />
+        <input id="password" type="password" placeholder="Enter Text" [(ngModel)]="password" />
       </div>
       <div class="form-group">
         <label for="confirmPassword">Confirm Password</label>
-        <input id="confirmPassword" type="password" placeholder="Enter Text" />
+        <input id="confirmPassword" type="password" placeholder="Enter Text" [(ngModel)]="confirmPassword" />
       </div>
     </div>
 
     <div class="form-group">
       <label for="firstName">First Name</label>
-      <input id="firstName" type="text" placeholder="Enter Text" />
+      <input id="firstName" type="text" placeholder="Enter Text" [(ngModel)]="firstName" />
     </div>
 
     <div class="form-group">
       <label for="lastName">Last Name</label>
-      <input id="lastName" type="text" placeholder="Enter Text" />
+      <input id="lastName" type="text" placeholder="Enter Text" [(ngModel)]="lastName" />
     </div>
 
     <div class="form-group">
       <label for="mobile">Mobile</label>
-      <input id="mobile" type="tel" placeholder="Enter Text" />
+      <input id="mobile" type="tel" placeholder="Enter Text" [(ngModel)]="mobile" />
     </div>
+
+    <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
 
     <button class="register-btn" (click)="onRegisterClick()">REGISTER</button>
   </div>
