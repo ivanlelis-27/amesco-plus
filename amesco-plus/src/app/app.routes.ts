@@ -14,6 +14,7 @@ import { Terms } from './pages/terms/terms';
 import { Privacy } from './pages/privacy/privacy';
 import { Unsubscribe } from './pages/unsubscribe/unsubscribe';
 import { MenuModal } from './pages/menu-modal/menu-modal';
+import { EmailSent } from './pages/email-sent/email-sent';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'welcome', pathMatch: 'full' },
@@ -31,5 +32,6 @@ export const routes: Routes = [
   { path: 'faqs', component: Faqs },
   { path: 'terms', component: Terms },
   { path: 'unsubscribe', component: Unsubscribe },
-  { path: 'menu-modal', component: MenuModal }
+  { path: 'menu-modal', component: MenuModal },
+  { path: 'email-sent', component: EmailSent }
 ];

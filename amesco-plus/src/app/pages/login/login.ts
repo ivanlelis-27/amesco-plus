@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Membercheck } from '../membercheck/membercheck';
-import { ForgotPassword } from '../forgot-password/forgot-password';
 import { ValidationService } from '../../validations/login-validation';
-import { Dashboard } from '../dashboard/dashboard';
+import { AuthService, LoginRequest } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +18,7 @@ export class Login {
     this.showPassword = !this.showPassword;
   }
 
-  constructor(private router: Router, private validationService: ValidationService) { }
+  constructor(private router: Router, private validationService: ValidationService, private authService: AuthService) { }
 
   goToMemberCheck() {
     this.router.navigate(['/membercheck']);
@@ -40,6 +38,15 @@ export class Login {
       alert(validationError);
       return;
     }
-    this.goToDashboard();
+
+    const loginData: LoginRequest = { email: this.email, password: this.password };
+    this.authService.login(loginData).subscribe({
+      next: (response) => {
+        this.goToDashboard();
+      },
+      error: (err) => {
+        alert('Login failed: ' + (err.error?.message || 'Invalid Email or Password'));
+      }
+    });
   }
 }
