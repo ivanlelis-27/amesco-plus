@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { AuthService } from '../../services/auth.service';
+import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'app-dashboard',
@@ -25,7 +27,22 @@ export class Dashboard {
   showMenu = false;
   closingMenu = false;
 
-  constructor(private router: Router) { }
+  points: number = 0;
+  memberId: string = '';
+  memberName: string = '';
+
+  constructor(private router: Router, private authService: AuthService) {
+    const token = this.authService.getToken();
+    if (token) {
+      const user: any = jwtDecode(token);
+      // Use correct property names from your JWT payload
+      this.memberId = user.memberId || '';
+      this.memberName = `${user.firstName || ''} ${user.lastName || ''}`.trim();
+      this.points = user.points || 0; // Only if you add 'points' to the payload
+      // For debugging, you can log the user object:
+      // console.log(user);
+    }
+  }
 
   openMenuModal() {
     this.showMenu = true;

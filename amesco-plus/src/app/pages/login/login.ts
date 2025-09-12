@@ -42,7 +42,12 @@ export class Login {
     const loginData: LoginRequest = { email: this.email, password: this.password };
     this.authService.login(loginData).subscribe({
       next: (response) => {
-        this.goToDashboard();
+        if (response.token) {
+          localStorage.setItem('jwtToken', response.token); // Store token
+          this.goToDashboard(); // or wherever you want to navigate
+        } else {
+          alert('Login failed: No token received.');
+        }
       },
       error: (err) => {
         alert('Login failed: ' + (err.error?.message || 'Invalid Email or Password'));
