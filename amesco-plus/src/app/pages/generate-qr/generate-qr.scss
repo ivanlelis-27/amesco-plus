@@ -3,11 +3,9 @@
     flex-direction: column;
     align-items: center;
     min-height: 100vh;
-    background: #fceef0;
     font-family: 'Poppins', sans-serif;
 }
 
-/* 🔺 Top Banner */
 .header {
     width: 100%;
     background: #B50F23;
@@ -53,9 +51,9 @@
     background: #fff;
     margin-top: -7rem;
     border-radius: 1.5rem;
-    padding: 1.5rem 1rem; // slightly reduced padding
+    padding: 1.5rem 1rem;
     width: 100%;
-    max-width: 22.8rem; // reduced card width
+    max-width: 22.8rem;
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
     height: 23rem;
 
@@ -77,42 +75,36 @@
 }
 
 .qr-image {
-    display: block;
+    position: relative;
+    bottom: 1rem;
     margin: 0 auto;
-    max-width: 14rem;
-    max-height: 14rem;
-    width: 100%;
-    height: auto;
+    width: 18rem;
+    height: 18rem;
+    object-fit: contain;
 }
 
 .member-id {
-    position: relative;
-    top: 5rem;
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
     text-align: center;
-    font-size: 1.1rem;
     font-weight: normal;
     color: black;
-    margin-top: 0.4rem;
 }
 
 .email {
-    position: relative;
-    top: 4rem;
+    margin-top: 0;
     text-align: center;
-    font-size: 1.1rem;
     font-weight: normal;
     color: black;
-    margin-top: 0.4rem;
 }
 
 .screenshot-footer {
-    position: relative;
+    position: static;
+    margin-top: 2rem;
     text-align: center;
-    top: 12rem;
     font-weight: bold;
     font-size: 1.1rem;
     color: #B50F23;
-
 }
 
 /* 📱 Responsiveness */

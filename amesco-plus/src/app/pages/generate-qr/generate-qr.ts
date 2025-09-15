@@ -21,6 +21,16 @@ export class GenerateQr implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.authService.getCurrentUserDetails().subscribe({
+      next: (details: any) => {
+        const fullId = details.memberId || '';
+        this.memberId = fullId.slice(-4); // Only last 4 digits
+        this.email = details.email || '';
+        this.cdr.detectChanges();
+      },
+      error: (err) => console.error(err)
+    });
+
     this.authService.getUserQr().subscribe({
       next: (res: Blob) => {
         const reader = new FileReader();
