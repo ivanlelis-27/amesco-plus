@@ -47,8 +47,6 @@ export class Dashboard {
           this.memberId = details.memberId ?? this.memberId;
           this.memberName = details.name ?? this.memberName;
 
-          console.log('Backend user details:', details);
-          console.log('Profile image field:', details.profileImage);
 
           if (details.profileImage) {
             const imgType = details.profileImageType ?? 'png';

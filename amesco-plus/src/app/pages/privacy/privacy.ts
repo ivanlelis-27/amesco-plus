@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 import { trigger, transition, style, animate } from '@angular/animations';
 
 @Component({
@@ -20,10 +21,10 @@ import { trigger, transition, style, animate } from '@angular/animations';
   ]
 })
 export class Privacy {
-  constructor(private router: Router) { }
+  constructor(private router: Router, private location: Location) { }
 
   goBack() {
-    this.router.navigate(['/member-profile']);
+    this.location.back();
   }
 
 }

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 import { trigger, transition, style, animate } from '@angular/animations';
 
 @Component({
@@ -20,9 +21,9 @@ import { trigger, transition, style, animate } from '@angular/animations';
   ]
 })
 export class Unsubscribe {
-  constructor(private router: Router) { }
+  constructor(private router: Router, private location: Location) { }
 
   onCancel() {
-    this.router.navigate(['/member-profile']);
+    this.location.back();
   }
 }
