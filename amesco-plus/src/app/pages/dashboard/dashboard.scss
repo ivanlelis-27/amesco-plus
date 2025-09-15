@@ -159,9 +159,12 @@ body {
 }
 
 .profile-circle {
-    background: #EF5150;
-    border-color: white;
-    color: #33691e;
+    width: 100px; // or whatever size you want
+    height: 100px;
+    border-radius: 50%; // circle
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover; // this ensures the full div is filled
 }
 
 .id-number {

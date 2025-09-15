@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { jwtDecode } from 'jwt-decode';
+import { HttpHeaders } from '@angular/common/http';
 
 export interface RegisterRequest {
     email: string;
@@ -45,6 +46,13 @@ export class AuthService {
         const user = localStorage.getItem(this.userKey);
         return user ? JSON.parse(user) : null;
     }
+
+    getCurrentUserDetails(): Observable<any> {
+        const token = this.getToken();
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+        return this.http.get<any>('https://localhost:5006/api/users/me', { headers });
+    }
+
 
     getUserFromToken(): any {
         const token = this.getToken();

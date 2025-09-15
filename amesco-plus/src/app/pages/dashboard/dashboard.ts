@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { AuthService } from '../../services/auth.service';
 import { jwtDecode } from 'jwt-decode';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -30,17 +31,38 @@ export class Dashboard {
   points: number = 0;
   memberId: string = '';
   memberName: string = '';
+  profileImage: string | null = null;
 
-  constructor(private router: Router, private authService: AuthService) {
+  constructor(private router: Router, private authService: AuthService, private cdr: ChangeDetectorRef) {
     const token = this.authService.getToken();
     if (token) {
       const user: any = jwtDecode(token);
-      // Use correct property names from your JWT payload
       this.memberId = user.memberId || '';
       this.memberName = `${user.firstName || ''} ${user.lastName || ''}`.trim();
-      this.points = user.points || 0; // Only if you add 'points' to the payload
-      // For debugging, you can log the user object:
-      // console.log(user);
+
+      this.authService.getCurrentUserDetails().subscribe({
+        next: (details: any) => {
+          this.points = details.points ?? 0;
+
+          this.memberId = details.memberId ?? this.memberId;
+          this.memberName = details.name ?? this.memberName;
+
+          console.log('Backend user details:', details);
+          console.log('Profile image field:', details.profileImage);
+
+          if (details.profileImage) {
+            const imgType = details.profileImageType ?? 'png';
+            this.profileImage = `data:image/${imgType};base64,${details.profileImage}`;
+          } else {
+            this.profileImage = null;
+          }
+
+          this.cdr.detectChanges();
+        },
+        error: (err) => {
+          console.error('Failed to fetch user details:', err);
+        }
+      });
     }
   }
 

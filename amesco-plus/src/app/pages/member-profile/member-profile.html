@@ -10,7 +10,7 @@
         <div class="color-filler"></div>
         <h1 class="title">Member Profile</h1>
         <div class="points-circle">
-            <span class="points-value">0</span>
+            <span class="points-value">{{ points }}</span>
             <span class="points-label">Points</span>
         </div>
         <div class="user-profile">
@@ -74,7 +74,7 @@
             </div>
             <div class="info-row">
                 <fa-icon [icon]="faEnvelope"></fa-icon>
-                <span class="info-text">juandelacruz@gmail.com</span>
+                <span class="info-text">{{ email }}</span>
             </div>
         </div>
         <div class="privacy-section" [style.opacity]="isEditing ? '0.5' : '1'">

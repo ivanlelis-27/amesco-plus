@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { faImage, faPen, faUser, faMobileAlt, faEnvelope, faClipboardList, faBookOpen, faFingerprint, faTimesCircle, faTimes, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { ChangeDetectorRef } from '@angular/core';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-member-profile',
@@ -22,11 +23,26 @@ import { trigger, transition, style, animate } from '@angular/animations';
   ]
 })
 export class MemberProfile {
-  constructor(private router: Router, private cdr: ChangeDetectorRef) { }
+  constructor(
+    private router: Router,
+    private cdr: ChangeDetectorRef,
+    private authService: AuthService // <-- Inject AuthService
+  ) {
+    const user = this.authService.getUserFromToken();
+    if (user) {
+      this.firstName = user.firstName || '';
+      this.lastName = user.lastName || '';
+      this.mobile = user.mobile || '';
+      this.email = user.email || '';
+      this.points = user.points || 0;
+    }
+  }
   isEditing = false;
-  firstName = 'Juan';
-  lastName = 'Dela Cruz';
-  mobile = '9123456789';
+  firstName = '';
+  lastName = '';
+  mobile = '';
+  email = '';
+  points = 0;
   faImage = faImage;
   faPen = faPen;
   faUser = faUser;

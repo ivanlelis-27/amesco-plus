@@ -23,8 +23,15 @@
             <span class="value">Redeem</span>
         </div>
         <div class="vouchers-label">Vouchers</div>
-        <div class="circle profile-circle">
+        <div class="circle profile-circle" *ngIf="profileImage; else placeholder"
+            [style.background-image]="'url(' + profileImage + ')'">
         </div>
+
+        <ng-template #placeholder>
+            <div class="circle profile-circle"> <!-- fallback, maybe initials -->
+                {{ memberName?.charAt(0) }}
+            </div>
+        </ng-template>
         <div class="id-number">ID: {{ memberId }}</div>
         <div class="member-name">{{ memberName }}</div>
     </div>
