@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { HttpClient } from '@angular/common/http';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-change-password',
@@ -20,11 +22,44 @@ import { trigger, transition, style, animate } from '@angular/animations';
   ]
 })
 export class ChangePassword {
-  constructor(private router: Router) { }
   newPassword: string = '';
   confirmPassword: string = '';
+  constructor(
+    private router: Router,
+    private http: HttpClient,
+    private authService: AuthService
+  ) { }
+
 
   goBack() {
     this.router.navigate(['/dashboard']);
+  }
+
+  updatePassword() {
+    if (this.newPassword !== this.confirmPassword) {
+      alert("Passwords do not match!");
+      return;
+    }
+
+    const token = this.authService.getToken();
+    if (!token) {
+      alert("You are not authenticated.");
+      return;
+    }
+
+    this.http.post('https://localhost:5006/api/users/change-password', {
+      newPassword: this.newPassword
+    }, {
+      headers: { Authorization: `Bearer ${token}` }
+    }).subscribe({
+      next: () => {
+        alert("Password updated successfully!");
+        this.router.navigate(['/dashboard']);
+      },
+      error: (err) => {
+        console.error(err);
+        alert("Failed to update password.");
+      }
+    });
   }
 }

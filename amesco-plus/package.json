@@ -38,6 +38,7 @@
     "@fortawesome/fontawesome-svg-core": "^7.0.1",
     "@fortawesome/free-solid-svg-icons": "^7.0.1",
     "@ionic/angular": "^8.7.3",
+    "angularx-qrcode": "^20.0.0",
     "express": "^5.1.0",
     "ionicons": "^8.0.13",
     "jwt-decode": "^4.0.0",

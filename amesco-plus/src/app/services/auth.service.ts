@@ -42,6 +42,10 @@ export class AuthService {
         localStorage.setItem(this.userKey, JSON.stringify(user));
     }
 
+    getUserQr(): Observable<any> {
+        return this.http.get('https://localhost:5006/api/users/qr');
+    }
+
     getUser(): any {
         const user = localStorage.getItem(this.userKey);
         return user ? JSON.parse(user) : null;

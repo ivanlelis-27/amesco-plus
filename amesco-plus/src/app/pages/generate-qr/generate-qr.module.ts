@@ -1,15 +1,15 @@
-import { NgModule, } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { GenerateQr } from './generate-qr';
 import { IonicModule } from '@ionic/angular';
+import { GenerateQr } from './generate-qr';
 
 @NgModule({
     declarations: [GenerateQr],
     imports: [
         CommonModule,
+        FormsModule,
         IonicModule,
-        FormsModule
     ]
 })
 export class GenerateQrModule { }

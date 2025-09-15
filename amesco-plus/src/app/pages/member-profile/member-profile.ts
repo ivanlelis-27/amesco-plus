@@ -26,23 +26,36 @@ export class MemberProfile {
   constructor(
     private router: Router,
     private cdr: ChangeDetectorRef,
-    private authService: AuthService // <-- Inject AuthService
+    private authService: AuthService
   ) {
-    const user = this.authService.getUserFromToken();
-    if (user) {
-      this.firstName = user.firstName || '';
-      this.lastName = user.lastName || '';
-      this.mobile = user.mobile || '';
-      this.email = user.email || '';
-      this.points = user.points || 0;
-    }
+    this.authService.getCurrentUserDetails().subscribe({
+      next: (details: any) => {
+        this.name = details.name || '';
+        this.mobile = details.mobile || '';
+        this.email = details.email || '';
+        this.points = details.points ?? 0;
+
+        if (details.profileImage) {
+          const imgType = details.profileImageType ?? 'png';
+          this.profileImage = `data:image/${imgType};base64,${details.profileImage}`;
+        } else {
+          this.profileImage = null;
+        }
+
+        this.cdr.detectChanges();
+        console.log('User details:', details);
+      },
+      error: (err) => {
+        console.error('Failed to fetch user details:', err);
+      }
+    });
   }
   isEditing = false;
-  firstName = '';
-  lastName = '';
+  name = '';
   mobile = '';
   email = '';
   points = 0;
+  profileImage: string | null = null;
   faImage = faImage;
   faPen = faPen;
   faUser = faUser;
