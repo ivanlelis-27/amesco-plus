@@ -42,6 +42,10 @@ export class MenuModal {
     this.animationDone.emit(event);
   }
 
+  goToBranches() {
+    this.router.navigate(['/branches']);
+  }
+
   goToFaqs() {
     this.router.navigate(['/faqs']);
   }

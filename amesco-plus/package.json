@@ -51,6 +51,7 @@
     "@angular/compiler-cli": "^20.2.0",
     "@capacitor/cli": "latest",
     "@types/express": "^5.0.1",
+    "@types/google.maps": "^3.58.1",
     "@types/jasmine": "~5.1.0",
     "@types/node": "^20.17.19",
     "jasmine-core": "~5.9.0",

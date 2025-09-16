@@ -2,7 +2,7 @@
     <div class="menu-modal-backdrop" (click)="closeMenu()"></div>
     <div class="menu-modal-sheet" [@slideInUp]="!closingMenu ? 'in' : 'void'"
         (@slideInUp.done)="onAnimationDone($event)">
-        <button class="menu-row">
+        <button class="menu-row" (click)="goToBranches()">
             <ion-icon name="storefront-outline"></ion-icon>
             <span>AMESCO Branches</span>
         </button>

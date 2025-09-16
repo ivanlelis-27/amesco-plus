@@ -1,0 +1,236 @@
+html,
+body {
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    overflow-y: auto;
+}
+
+.branches-header {
+    width: 100%;
+    background: #B50E1F;
+    display: flex;
+    align-items: center;
+    padding: 3rem 1rem;
+    position: fixed; // keep header always visible
+    top: 0;
+    left: 0;
+    z-index: 10;
+
+    .header {
+        display: flex;
+        align-items: center;
+        width: 100%;
+    }
+
+    .back-icon {
+        background: none;
+        border: none;
+        box-shadow: none;
+        font-size: 2rem;
+        color: white;
+        margin-right: 0.7rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+    }
+
+    .title,
+    .branches-title {
+        position: relative;
+        right: 1.8rem;
+        text-align: center;
+        color: #fff;
+        font-family: 'Nunito', sans-serif;
+        font-weight: 600;
+        font-size: 1.4rem;
+        flex: 1;
+        margin: 0;
+    }
+}
+
+.branches-map-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+
+    .map {
+        width: 95vw;
+        max-width: 350px;
+        height: 220px;
+        border-radius: 1rem;
+        background: #eee;
+    }
+}
+
+.branches-list-container {
+    margin-top: 8.8rem;
+    margin-left: 0.6rem;
+    width: 95%;
+    padding: 1rem 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+}
+
+.branch-card {
+    background: #fff;
+    border-radius: 0.7rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    padding: 0.9rem 1.1rem 0.7rem 1.1rem;
+    margin-bottom: 0.2rem;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Nunito', sans-serif;
+    position: relative;
+    min-width: 0;
+}
+
+.branch-name {
+    position: relative;
+    bottom: 0.6rem;
+    left: 1rem;
+    font-size: 1.08rem;
+    font-weight: 700;
+    margin-bottom: 0.2rem;
+    color: #222;
+    font-family: 'Nunito', sans-serif;
+}
+
+.branch-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.branch-address,
+.branch-contact,
+.branch-hours {
+    display: flex;
+    align-items: center;
+    font-size: 0.8rem;
+    color: #444;
+    font-family: 'Nunito', sans-serif;
+    word-break: break-word;
+}
+
+.branch-address ion-icon {
+    color: #bdbdbd;
+    font-size: 1.3rem;
+    margin-right: 0.3rem;
+    vertical-align: middle;
+}
+
+.branch-contact ion-icon {
+    color: #1976d2;
+    font-size: 1.3rem;
+    margin-right: 0.3rem;
+    vertical-align: middle;
+}
+
+.branch-contact a {
+    color: #1976d2;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 0.97rem;
+}
+
+.branch-hours ion-icon {
+    color: #bdbdbd;
+    font-size: 1.3rem;
+    margin-right: 0.3rem;
+    vertical-align: middle;
+}
+
+.branch-hours {
+    color: #888;
+    font-size: 0.93rem;
+    margin-bottom: 0;
+}
+
+.branch-location-icon {
+    position: absolute;
+    bottom: 1.2rem;
+    right: 1.2rem;
+    color: #B50E1F;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    z-index: 2;
+}
+
+.branch-location-icon ion-icon {
+    color: #B50E1F;
+    font-size: 1.6rem;
+    vertical-align: middle;
+    border-bottom: 3px solid #B50E1F;
+    border-radius: 2px;
+}
+
+.map-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.map-modal-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.map-modal-content {
+    position: relative;
+    background: #fff;
+    border-radius: 1.2rem;
+    padding: 1.2rem;
+    width: 95vw;
+    max-width: 400px;
+    min-height: 320px;
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.close-btn {
+    position: absolute;
+    top: 0.7rem;
+    right: 1.1rem;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: #B50E1F;
+    cursor: pointer;
+}
+
+.map-modal-title {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-bottom: 0.7rem;
+    text-align: center;
+}
+
+@media (max-width: 480px) {
+    .branches-list-container {
+        padding: 0.5rem 0.1rem;
+    }
+
+    .branch-card {
+        padding: 0.8rem 0.5rem 0.6rem 0.5rem;
+    }
+}
