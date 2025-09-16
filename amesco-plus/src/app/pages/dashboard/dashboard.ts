@@ -1,5 +1,6 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
+import { faWallet } from '@fortawesome/free-solid-svg-icons';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { AuthService } from '../../services/auth.service';
 import { jwtDecode } from 'jwt-decode';
@@ -28,6 +29,7 @@ export class Dashboard {
   showMenu = false;
   closingMenu = false;
 
+  faWallet = faWallet;
   points: number = 0;
   memberId: string = '';
   memberName: string = '';

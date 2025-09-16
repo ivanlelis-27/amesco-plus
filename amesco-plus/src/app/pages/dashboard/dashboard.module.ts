@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { Dashboard } from './dashboard';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MenuModalModule } from '../menu-modal/menu-modal.module';
 
 @NgModule({
@@ -11,6 +12,7 @@ import { MenuModalModule } from '../menu-modal/menu-modal.module';
         CommonModule,
         IonicModule,
         FormsModule,
+        FontAwesomeModule,
         MenuModalModule
     ]
 })
