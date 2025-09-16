@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectorRef, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { faWallet } from '@fortawesome/free-solid-svg-icons';
 import { trigger, transition, style, animate } from '@angular/animations';
@@ -24,10 +24,26 @@ import { jwtDecode } from 'jwt-decode';
   ]
 })
 export class Dashboard {
-  carouselItems = ['Slide 1', 'Slide 2', 'Slide 3'];
+  carouselItems = [
+    { src: '/amescall.png', alt: 'Amescall Banner 1' },
+    { src: '/discount.png', alt: 'Amescall Banner 2' },
+    { src: '/m2.png', alt: 'Amescall Banner 3' },
+    { src: '/telecare.png', alt: 'Amescall Banner 3' },
+    { src: '/fbsrbs.png', alt: 'Amescall Banner 3' },
+  ];
   currentSlide = 0;
   showMenu = false;
   closingMenu = false;
+  autoScrollInterval: any;
+  ngOnInit() {
+    this.startAutoScroll();
+  }
+
+  ngOnDestroy() {
+    if (this.autoScrollInterval) {
+      clearInterval(this.autoScrollInterval);
+    }
+  }
 
   faWallet = faWallet;
   points: number = 0;
@@ -97,11 +113,31 @@ export class Dashboard {
     this.router.navigate(['/member-profile']);
   }
 
+  startAutoScroll() {
+    this.autoScrollInterval = setInterval(() => {
+      if (this.currentSlide < this.carouselItems.length - 1) {
+        this.currentSlide++;
+      } else {
+        this.currentSlide = 0;
+      }
+      this.cdr.detectChanges();
+    }, 10000);
+  }
+
   prevSlide() {
-    this.currentSlide = (this.currentSlide === 0) ? this.carouselItems.length - 1 : this.currentSlide - 1;
+    if (this.currentSlide > 0) {
+      this.currentSlide--;
+    }
   }
 
   nextSlide() {
-    this.currentSlide = (this.currentSlide === this.carouselItems.length - 1) ? 0 : this.currentSlide + 1;
+    if (this.currentSlide < this.carouselItems.length - 1) {
+      this.currentSlide++;
+    }
   }
+
+  get trackTransform() {
+    return `translateX(-${this.currentSlide * 100}%)`;
+  }
+
 }

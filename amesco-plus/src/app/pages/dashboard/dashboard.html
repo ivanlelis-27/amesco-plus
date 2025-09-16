@@ -61,18 +61,21 @@
     </div>
 
     <div class="carousel-footer">
-        <button class="carousel-btn left" (click)="prevSlide()">
-            <ion-icon name="chevron-back-outline"></ion-icon>
-        </button>
-        <div class="carousel-track">
-            <div class="carousel-slide" *ngFor="let item of carouselItems; let i = index"
-                [class.active]="i === currentSlide">
-                {{ item }}
+        <div class="carousel-container">
+            <button class="carousel-btn left" [class.disabled]="currentSlide === 0" (click)="prevSlide()"
+                [disabled]="currentSlide === 0">
+                <ion-icon name="chevron-back-outline"></ion-icon>
+            </button>
+            <div class="carousel-track" [style.transform]="trackTransform">
+                <div class="carousel-slide" *ngFor="let item of carouselItems" [style.width.%]="100">
+                    <img [src]="item.src" [alt]="item.alt" class="carousel-image" />
+                </div>
             </div>
+            <button class="carousel-btn right" [class.disabled]="currentSlide === carouselItems.length - 1"
+                (click)="nextSlide()" [disabled]="currentSlide === carouselItems.length - 1">
+                <ion-icon name="chevron-forward-outline"></ion-icon>
+            </button>
         </div>
-        <button class="carousel-btn right" (click)="nextSlide()">
-            <ion-icon name="chevron-forward-outline"></ion-icon>
-        </button>
     </div>
 </div>
 <app-menu-modal *ngIf="showMenu" [closingMenu]="closingMenu" (close)="startCloseMenu()"
