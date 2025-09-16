@@ -1,5 +1,6 @@
 import { Component, Input, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
-import { GoogleMapsLoaderService } from '../../services/google-maps-loader.service'; // adjust path if needed
+import { GoogleMapsLoaderService } from '../../services/google-maps-loader.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
     selector: 'app-map',
@@ -15,7 +16,7 @@ export class MapComponent implements AfterViewInit {
     constructor(private gMapsLoader: GoogleMapsLoaderService) { }
 
     ngAfterViewInit(): void {
-        const apiKey = 'AIzaSyBapOYQHrdVvHmO9FPox16nZIGV79IQ0_I';
+        const apiKey = environment.googleMapsApiKey;
 
         this.gMapsLoader.load(apiKey).then(() => {
             if (this.lat && this.lng) {
