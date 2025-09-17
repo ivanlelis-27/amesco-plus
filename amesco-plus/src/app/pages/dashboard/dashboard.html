@@ -22,6 +22,7 @@
         <button class="circle redeem-circle" (click)="goToCreateVoucher()">
             <fa-icon [icon]="faWallet" class="wallet-icon"></fa-icon>
             <span class="value">Redeem</span>
+            <span *ngIf="loadingPoints" class="spinner"></span>
         </button>
         <div class="vouchers-label">Vouchers</div>
         <div class="circle profile-circle" *ngIf="profileImage; else placeholder"

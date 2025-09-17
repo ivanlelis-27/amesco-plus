@@ -35,6 +35,7 @@ export class Dashboard {
   showMenu = false;
   closingMenu = false;
   autoScrollInterval: any;
+  loadingPoints = false;
   ngOnInit() {
     this.startAutoScroll();
   }
@@ -110,7 +111,17 @@ export class Dashboard {
   }
 
   goToCreateVoucher() {
-    this.router.navigate(['/create-voucher']);
+    this.loadingPoints = true;
+    this.authService.getCurrentUserDetails().subscribe({
+      next: (details: any) => {
+        this.loadingPoints = false;
+        this.router.navigate(['/create-voucher'], { state: { points: details.points ?? 0 } });
+      },
+      error: (err) => {
+        this.loadingPoints = false;
+        alert('Failed to load points.');
+      }
+    });
   }
 
   goToMemberProfile() {

@@ -18,6 +18,7 @@ import { EmailSent } from './pages/email-sent/email-sent';
 import { Branches } from './pages/branches/branches';
 import { UnsubscribeSuccess } from './pages/unsubscribe-success/unsubscribe-success';
 import { CreateVoucher } from './pages/create-voucher/create-voucher';
+import { Congratulations } from './pages/congratulations/congratulations';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'welcome', pathMatch: 'full' },
@@ -39,5 +40,6 @@ export const routes: Routes = [
   { path: 'email-sent', component: EmailSent },
   { path: 'branches', component: Branches },
   { path: 'unsubscribe-success', component: UnsubscribeSuccess },
-  { path: 'create-voucher', component: CreateVoucher }
+  { path: 'create-voucher', component: CreateVoucher },
+  { path: 'congratulations', component: Congratulations }
 ];

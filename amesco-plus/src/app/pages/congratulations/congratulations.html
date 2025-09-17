@@ -1,0 +1,16 @@
+<div class="congrats-container">
+  <div class="congrats-card">
+    <div class="congrats-title">Congratulations!</div>
+    <div class="congrats-subtitle">Your voucher has been successfully redeemed.</div>
+    <div class="congrats-value">
+      <span class="peso-sign">₱</span>{{ value | number:'1.2-2' }}
+    </div>
+    <div class="congrats-desc">This voucher can be used on your<br>next purchase</div>
+    <div class="congrats-qr">
+      <img [src]="qrImage" alt="Voucher QR" />
+    </div>
+    <div class="congrats-code">{{ voucherCode }}</div>
+    <hr class="congrats-divider" />
+    <button class="congrats-btn" (click)="goToDashboard()">Back to Home</button>
+  </div>
+</div>

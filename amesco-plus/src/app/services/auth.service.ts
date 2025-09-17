@@ -71,6 +71,18 @@ export class AuthService {
         }
     }
 
+    createVoucher(voucherId: number, value: number): Observable<any> {
+        const token = this.getToken();
+        const user = this.getUserFromToken();
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+        const body = {
+            voucherId,
+            userId: Number(user?.sub), // Use sub for UserId
+            value
+        };
+        return this.http.post('https://localhost:5006/api/vouchers/create', body, { headers });
+    }
+
     unsubscribe(): Observable<any> {
         const token = this.getToken();
         const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
