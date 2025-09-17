@@ -32,10 +32,9 @@ export class GenerateQr implements OnInit {
     });
 
     this.authService.getUserQr().subscribe({
-      next: (res: Blob) => {
-        const reader = new FileReader();
-        reader.onload = () => this.qrImage = reader.result as string;
-        reader.readAsDataURL(res);
+      next: (res: any) => {
+        this.qrImage = 'data:image/png;base64,' + res.qrImage;
+        this.cdr.detectChanges();
       },
       error: (err) => console.error(err)
     });

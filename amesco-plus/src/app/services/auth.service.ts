@@ -42,10 +42,10 @@ export class AuthService {
         localStorage.setItem(this.userKey, JSON.stringify(user));
     }
 
-    getUserQr(): Observable<Blob> {
+    getUserQr(): Observable<{ qrImage: string }> {
         const token = this.getToken();
         const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-        return this.http.get('https://localhost:5006/api/users/qr', { headers, responseType: 'blob' });
+        return this.http.get<{ qrImage: string }>('https://localhost:5006/api/users/qr', { headers });
     }
 
 
