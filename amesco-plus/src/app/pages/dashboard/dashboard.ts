@@ -109,6 +109,10 @@ export class Dashboard {
     this.router.navigate(['/change-password']);
   }
 
+  goToCreateVoucher() {
+    this.router.navigate(['/create-voucher']);
+  }
+
   goToMemberProfile() {
     this.router.navigate(['/member-profile']);
   }

@@ -1,0 +1,33 @@
+<div class="create-voucher-container">
+  <div class="voucher-header">
+    <button class="back-btn" (click)="goBack()">
+      <ion-icon name="chevron-back-outline"></ion-icon>
+    </button>
+    <span class="header-title">Create Voucher</span>
+  </div>
+  <div class="balance-section">
+    <div class="balance-label">Balance Points</div>
+    <div class="balance-value">{{ points }}</div>
+    <input class="voucher-input" type="number" placeholder="0.00" disabled />
+  </div>
+  <div class="voucher-number-section">
+    <span class="voucher-number-label">Voucher #:</span>
+    <span class="voucher-number-value">{{ voucherNumber }}</span>
+  </div>
+  <div class="voucher-list">
+    <div class="voucher-card" *ngFor="let voucher of vouchers">
+      <div class="voucher-card-top">
+        <div class="voucher-stars">
+          <ion-icon name="star" class="star"></ion-icon>
+          <ion-icon name="star" class="star"></ion-icon>
+        </div>
+        <div class="voucher-value">{{ voucher.value }}</div>
+      </div>
+      <div class="voucher-divider"></div>
+      <div class="voucher-card-bottom">
+        <div class="voucher-value-label">Voucher Value</div>
+        <button class="redeem-btn" (click)="redeemVoucher(voucher)">Redeem Voucher</button>
+      </div>
+    </div>
+  </div>
+</div>

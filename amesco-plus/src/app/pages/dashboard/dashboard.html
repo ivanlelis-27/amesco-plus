@@ -19,10 +19,10 @@
             <span class="value">{{ points }}</span>
         </div>
         <div class="points-label">Earned Points</div>
-        <div class="circle redeem-circle">
+        <button class="circle redeem-circle" (click)="goToCreateVoucher()">
             <fa-icon [icon]="faWallet" class="wallet-icon"></fa-icon>
             <span class="value">Redeem</span>
-        </div>
+        </button>
         <div class="vouchers-label">Vouchers</div>
         <div class="circle profile-circle" *ngIf="profileImage; else placeholder"
             [style.background-image]="'url(' + profileImage + ')'">
