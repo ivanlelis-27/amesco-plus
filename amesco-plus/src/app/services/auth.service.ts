@@ -71,6 +71,12 @@ export class AuthService {
         }
     }
 
+    unsubscribe(): Observable<any> {
+        const token = this.getToken();
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+        return this.http.delete(`${this.apiUrl}/unsubscribe`, { headers });
+    }
+
     clearSession() {
         localStorage.removeItem(this.tokenKey);
         localStorage.removeItem(this.userKey);

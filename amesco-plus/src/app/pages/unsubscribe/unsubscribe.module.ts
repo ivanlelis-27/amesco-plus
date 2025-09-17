@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { Unsubscribe } from './unsubscribe';
+import { HttpClientModule } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
@@ -11,7 +12,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
         CommonModule,
         IonicModule,
         FormsModule,
-        FontAwesomeModule
+        FontAwesomeModule,
+        HttpClientModule
     ],
     exports: [Unsubscribe]
 })

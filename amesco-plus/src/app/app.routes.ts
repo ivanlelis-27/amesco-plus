@@ -16,6 +16,7 @@ import { Unsubscribe } from './pages/unsubscribe/unsubscribe';
 import { MenuModal } from './pages/menu-modal/menu-modal';
 import { EmailSent } from './pages/email-sent/email-sent';
 import { Branches } from './pages/branches/branches';
+import { UnsubscribeSuccess } from './pages/unsubscribe-success/unsubscribe-success';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'welcome', pathMatch: 'full' },
@@ -35,5 +36,6 @@ export const routes: Routes = [
   { path: 'unsubscribe', component: Unsubscribe },
   { path: 'menu-modal', component: MenuModal },
   { path: 'email-sent', component: EmailSent },
-  { path: 'branches', component: Branches }
+  { path: 'branches', component: Branches },
+  { path: 'unsubscribe-success', component: UnsubscribeSuccess }
 ];
