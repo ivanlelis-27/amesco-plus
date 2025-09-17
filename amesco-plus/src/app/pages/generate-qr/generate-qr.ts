@@ -24,7 +24,7 @@ export class GenerateQr implements OnInit {
     this.authService.getCurrentUserDetails().subscribe({
       next: (details: any) => {
         const fullId = details.memberId || '';
-        this.memberId = fullId.slice(-4); // Only last 4 digits
+        this.memberId = fullId.includes('-') ? fullId.split('-')[1] : fullId;
         this.email = details.email || '';
         this.cdr.detectChanges();
       },
