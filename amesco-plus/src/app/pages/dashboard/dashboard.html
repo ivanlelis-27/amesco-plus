@@ -71,6 +71,11 @@
                     <img [src]="item.src" [alt]="item.alt" class="carousel-image" />
                 </div>
             </div>
+            <!-- Carousel indicators -->
+            <div class="carousel-indicators">
+                <span *ngFor="let item of carouselItems; let i = index" [class.active]="i === currentSlide"
+                    class="carousel-indicator"></span>
+            </div>
             <button class="carousel-btn right" [class.disabled]="currentSlide === carouselItems.length - 1"
                 (click)="nextSlide()" [disabled]="currentSlide === carouselItems.length - 1">
                 <ion-icon name="chevron-forward-outline"></ion-icon>
