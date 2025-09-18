@@ -1,0 +1,272 @@
+@keyframes modal-slide-up {
+    from {
+        opacity: 0;
+        transform: translate(-50%, 100%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+
+@keyframes modal-slide-down {
+    from {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+
+    to {
+        opacity: 0;
+        transform: translate(-50%, 100%);
+    }
+}
+
+html,
+body {
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    overflow-y: auto;
+}
+
+.unused-vouchers-container {
+    background: #fdf6f6;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.unused-vouchers-header {
+    width: 100%;
+    background: #B50E1F;
+    display: flex;
+    align-items: center;
+    padding: 3rem 1rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+
+    .header {
+        display: flex;
+        align-items: center;
+        width: 100%;
+    }
+}
+
+.back-btn {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 2rem;
+    margin-right: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.header-title {
+    color: #fff;
+    font-size: 1.4rem;
+    font-weight: 600;
+    font-family: 'Nunito', sans-serif;
+    flex: 1;
+    text-align: center;
+    margin-right: 1.4rem;
+}
+
+.vouchers-list {
+    width: 100%;
+    margin-top: 9rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+
+}
+
+.voucher-card {
+    background: #fff;
+    border-radius: 0.4rem;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.08);
+    width: 97%;
+    max-width: 25rem;
+    padding: 1.5rem 1rem;
+    display: flex;
+    align-items: center;
+    font-family: 'Nunito', sans-serif;
+    gap: 1rem;
+}
+
+.voucher-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center; // <-- center horizontally
+    min-width: 3.5rem;
+    margin-right: 0.7rem;
+}
+
+.voucher-value {
+    color: #07a7ad;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 500;
+    margin-bottom: 0.1rem; // slight space above 'Used'
+    left: 0; // remove relative positioning
+    position: static; // remove relative positioning
+}
+
+.voucher-used {
+    color: #bdbdbd;
+    font-size: 0.95rem;
+    text-align: center;
+}
+
+.voucher-info {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.voucher-code {
+    color: #444;
+    font-size: 1.05rem;
+    font-weight: 600;
+}
+
+.voucher-date {
+    color: #666666;
+    font-size: 0.95rem;
+}
+
+.voucher-delete {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: 0.7rem;
+    display: flex;
+    align-items: center;
+}
+
+.trash-icon {
+    color: #b50e1f;
+    font-size: 1.7rem;
+}
+
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.18);
+    z-index: 100;
+}
+
+.delete-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.12);
+    padding: 2rem 1.5rem 1.5rem 1.5rem;
+    z-index: 101;
+    min-width: 24rem;
+    max-width: 32rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 1;
+    animation: modal-slide-up 0.35s cubic-bezier(.4, 0, .2, 1);
+}
+
+.delete-modal.closing {
+    animation: modal-slide-down 0.35s cubic-bezier(.4, 0, .2, 1);
+}
+
+.modal-title {
+    font-size: 1.2rem;
+    color: #444;
+    text-align: center;
+    margin-bottom: 2rem;
+    font-family: 'Nunito', sans-serif;
+}
+
+.modal-details {
+    display: flex;
+    gap: 2.5rem;
+    font-size: 1.05rem;
+    color: #444;
+    margin-bottom: 2rem;
+    font-family: 'Nunito', sans-serif;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 1.5rem;
+    width: 100%;
+    justify-content: center;
+}
+
+.cancel-btn {
+    background: none;
+    border: none;
+    color: #b50e1f;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: 'Nunito', sans-serif;
+}
+
+.continue-btn {
+    background: #b50e1f;
+    color: #fff;
+    border: none;
+    border-radius: 0.7rem;
+    padding: 0.5rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: 'Nunito', sans-serif;
+}
+
+.voucher-footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background: #fdf6f6;
+    font-family: 'Nunito', sans-serif;
+    color: #525252;
+    font-size: 1rem;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 2rem 0;
+    z-index: 99;
+}
+
+.copy-icon {
+    color: #bdbdbd;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+
+.footer-copy-icon {
+    color: #525252;
+    font-size: 1.3rem;
+    margin-left: 0.5rem;
+
+}
+
+.used-btn {
+    border: none;
+    background: none;
+}

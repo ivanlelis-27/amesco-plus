@@ -20,6 +20,8 @@ import { UnsubscribeSuccess } from './pages/unsubscribe-success/unsubscribe-succ
 import { CreateVoucher } from './pages/create-voucher/create-voucher';
 import { Congratulations } from './pages/congratulations/congratulations';
 import { EarnedPoints } from './pages/earned-points/earned-points';
+import { UnusedVouchers } from './pages/unused-vouchers/unused-vouchers';
+import { UsedVouchers } from './pages/used-vouchers/used-vouchers';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'welcome', pathMatch: 'full' },
@@ -43,5 +45,7 @@ export const routes: Routes = [
   { path: 'unsubscribe-success', component: UnsubscribeSuccess },
   { path: 'create-voucher', component: CreateVoucher },
   { path: 'congratulations', component: Congratulations },
-  { path: 'earned-points', component: EarnedPoints }
+  { path: 'earned-points', component: EarnedPoints },
+  { path: 'unused-vouchers', component: UnusedVouchers },
+  { path: 'used-vouchers', component: UsedVouchers }
 ];

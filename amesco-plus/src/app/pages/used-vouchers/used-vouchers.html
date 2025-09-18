@@ -1,0 +1,26 @@
+<div class="used-vouchers-container">
+    <div class="used-vouchers-header">
+        <button class="back-btn" (click)="goBack()">
+            <ion-icon name="chevron-back-outline"></ion-icon>
+        </button>
+        <span class="header-title">Used Vouchers</span>
+        <button class="home-btn" (click)="goToDashboard()">
+            <ion-icon name="home-outline" class="home-icon"></ion-icon>
+        </button>
+    </div>
+    <div class="vouchers-list">
+        <div class="voucher-card" *ngFor="let v of vouchers">
+            <div class="voucher-left">
+                <div class="voucher-value">-{{ v.value }}</div>
+                <div class="voucher-used">Used</div>
+            </div>
+            <div class="voucher-info">
+                <div class="voucher-code">{{ v.voucherCode }}</div>
+                <div class="voucher-date">{{ v.dateUsed | date:'MMM d, yyyy' }}</div>
+            </div>
+            <div class="voucher-actions">
+                <ion-icon name="apps" class="apps-icon"></ion-icon>
+            </div>
+        </div>
+    </div>
+</div>

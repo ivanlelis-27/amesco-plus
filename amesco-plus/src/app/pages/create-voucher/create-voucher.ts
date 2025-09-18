@@ -49,7 +49,6 @@ export class CreateVoucher implements OnInit {
     const value = Number(this.voucherInput);
     this.authService.createVoucher(voucherId, value).subscribe({
       next: (res) => {
-        // Route to congratulations page with voucher details
         this.router.navigate(['/congratulations'], {
           state: {
             value: res.voucher?.Value ?? value,

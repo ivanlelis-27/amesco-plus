@@ -83,10 +83,25 @@ export class AuthService {
         const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
         const body = {
             voucherId,
-            userId: Number(user?.sub), // Use sub for UserId
+            userId: Number(user?.sub),
             value
         };
         return this.http.post('https://localhost:5006/api/vouchers/create', body, { headers });
+    }
+
+    deleteVoucher(voucherCode: string): Observable<any> {
+        const token = this.getToken();
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+        return this.http.delete<any>(
+            `https://localhost:5006/api/vouchers/delete?voucherCode=${encodeURIComponent(voucherCode)}`,
+            { headers }
+        );
+    }
+
+    getUserVouchers(userId: number): Observable<any[]> {
+        const token = this.getToken();
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+        return this.http.get<any[]>(`https://localhost:5006/api/users/user/${userId}`, { headers });
     }
 
     unsubscribe(): Observable<any> {

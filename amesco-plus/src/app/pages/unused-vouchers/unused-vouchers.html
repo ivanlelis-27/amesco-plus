@@ -1,0 +1,44 @@
+<div class="unused-vouchers-container">
+    <div class="unused-vouchers-header">
+        <button class="back-btn" (click)="goBack()">
+            <ion-icon name="chevron-back-outline"></ion-icon>
+        </button>
+        <span class="header-title">Unused Voucher</span>
+        <button class="used-btn" (click)="goToUsedVouchers()">
+            <ion-icon name="copy-outline" class="copy-icon"></ion-icon>
+        </button>
+    </div>
+    <div class="vouchers-list">
+        <div class="voucher-card" *ngFor="let v of vouchers">
+            <div class="voucher-left">
+                <div class="voucher-value">{{ v.value }}</div>
+                <div class="voucher-used">Used</div>
+            </div>
+            <div class="voucher-info">
+                <div class="voucher-code">{{ v.voucherCode }}</div>
+                <div class="voucher-date">{{ v.dateCreated | date:'MMM d, yyyy' }}</div>
+            </div>
+            <button class="voucher-delete" (click)="openDeleteModal(v)">
+                <ion-icon name="trash" class="trash-icon"></ion-icon>
+            </button>
+        </div>
+    </div>
+    <div class="modal-backdrop" *ngIf="modalOpen"></div>
+    <div class="delete-modal" *ngIf="modalOpen" [ngClass]="{'closing': modalClosing}">
+        <div class="modal-title">
+            Deleting this Voucher will credit back used points. Do you want to continue?
+        </div>
+        <div class="modal-details">
+            <span>{{ selectedVoucher?.voucherNumber }}</span>
+            <span>{{ selectedVoucher?.voucherCode }}</span>
+        </div>
+        <div class="modal-actions">
+            <button class="cancel-btn" (click)="closeModal()">CANCEL</button>
+            <button class="continue-btn" (click)="confirmDelete()">CONTINUE</button>
+        </div>
+    </div>
+</div>
+<div class="voucher-footer">
+    To view used vouchers, click top-right corner
+    <ion-icon name="copy-outline" class="footer-copy-icon"></ion-icon>
+</div>

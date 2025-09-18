@@ -24,7 +24,7 @@
             <span class="value">Redeem</span>
             <span *ngIf="loadingPoints" class="spinner"></span>
         </button>
-        <div class="vouchers-label">Vouchers</div>
+        <button class="vouchers-label" (click)="goToUnusedVouchers()">Vouchers</button>
         <div class="circle profile-circle" *ngIf="profileImage; else placeholder"
             [style.background-image]="'url(' + profileImage + ')'">
         </div>

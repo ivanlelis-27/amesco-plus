@@ -128,6 +128,10 @@ export class Dashboard {
     });
   }
 
+  goToUnusedVouchers() {
+    this.router.navigate(['/unused-vouchers']);
+  }
+
   goToMemberProfile() {
     this.router.navigate(['/member-profile']);
   }
