@@ -15,10 +15,10 @@
                 <ion-icon name="location-outline"></ion-icon>
                 {{ branch.address }}
             </span>
-            <span class="branch-contact">
+            <a class="branch-contact" [href]="'tel:' + branch.contact" (click)="$event.stopPropagation()">
                 <ion-icon name="call-outline"></ion-icon>
                 {{ branch.contact }}
-            </span>
+            </a>
             <span class="branch-hours">
                 <ion-icon name="time-outline"></ion-icon>
                 {{ branch.hours }}
