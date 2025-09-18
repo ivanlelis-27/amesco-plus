@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
   selector: 'app-earned-points',
   standalone: false,
   templateUrl: './earned-points.html',
-  styleUrl: './earned-points.scss' // <-- also fix the typo here
+  styleUrl: './earned-points.scss'
 })
 export class EarnedPoints implements OnInit, OnDestroy {
   transactions: any[] = [];
@@ -20,7 +20,7 @@ export class EarnedPoints implements OnInit, OnDestroy {
     const user = this.authService.getUserFromToken();
     this.userId = Number(user?.sub);
 
-    this.loadTransactions(); // initial load
+    this.loadTransactions();
 
     // reload every time we come back to this route
     this.sub = this.router.events.subscribe(event => {

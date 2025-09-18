@@ -13,19 +13,9 @@ body {
     width: 100%;
     height: 15rem;
     object-fit: cover;
-    object-position: 18% center; // shifts image content to the right
+    object-position: 18% center;
     z-index: 1;
 }
-
-/**.color-filler {
-    position: relative;
-    width: 2.6rem;
-    height: 1.8rem;
-    left: 10.9rem;
-    top: 11.6rem;
-    background: #B40C19;
-    color: #B40C19;
-}**/
 
 .header {
     position: relative;

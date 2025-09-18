@@ -103,7 +103,7 @@ body {
 .voucher-left {
     display: flex;
     flex-direction: column;
-    align-items: center; // <-- center horizontally
+    align-items: center;
     min-width: 3.5rem;
     margin-right: 0.7rem;
 }
@@ -113,9 +113,9 @@ body {
     font-family: 'Nunito', sans-serif;
     font-size: 1.3rem;
     font-weight: 500;
-    margin-bottom: 0.1rem; // slight space above 'Used'
-    left: 0; // remove relative positioning
-    position: static; // remove relative positioning
+    margin-bottom: 0.1rem; 
+    left: 0; 
+    position: static;
 }
 
 .voucher-used {

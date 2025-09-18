@@ -23,7 +23,7 @@
   .logo-text {
     display: flex;
     flex-direction: column;
-    align-items: flex-end; // Align children to the right
+    align-items: flex-end; 
     font-size: 10rem;
     font-weight: 700;
     color: #fff;
@@ -33,8 +33,8 @@
       display: block;
       font-size: 2.5rem;
       color: #00bcd4;
-      text-align: right; // Ensure text is right-aligned
-      width: auto; // Prevent full width
+      text-align: right;
+      width: auto; 
       margin-top: -0.6rem;
     }
   }
@@ -43,7 +43,7 @@
 .question {
   font-size: 1.8rem;
   font-weight: 500;
-  margin-bottom: 1rem; // space between question and input
+  margin-bottom: 1rem; 
   text-align: center;
   width: 100%;
   max-width: 350px;
@@ -114,8 +114,8 @@
     &:hover,
     &:focus,
     &:active {
-      background: transparent; // No background change
-      color: white; // Keep text color white
+      background: transparent; 
+      color: white; 
       outline: none;
     }
   }
@@ -148,7 +148,6 @@
   text-align: center;
 }
 
-/* Responsive styles */
 @media (max-width: 900px) {
   .logo-box .logo-text {
     font-size: 4rem;

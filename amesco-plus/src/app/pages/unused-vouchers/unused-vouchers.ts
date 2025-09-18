@@ -23,7 +23,6 @@ export class UnusedVouchers implements OnInit {
     if (this.userId) {
       this.authService.getUserVouchers(this.userId).subscribe({
         next: (vouchers: any[]) => {
-          // Only show vouchers where isUsed is false
           this.vouchers = vouchers.filter(v => v.isUsed === false);
           console.log('Unused vouchers to display:', this.vouchers);
           this.cdr.detectChanges();
@@ -63,7 +62,6 @@ export class UnusedVouchers implements OnInit {
     if (!this.selectedVoucher?.voucherCode) return;
     this.authService.deleteVoucher(this.selectedVoucher.voucherCode).subscribe({
       next: (res) => {
-        // Remove the deleted voucher from the array
         this.vouchers = this.vouchers.filter(
           v => v.voucherCode !== this.selectedVoucher.voucherCode
         );

@@ -27,15 +27,15 @@ export class ForgotPassword {
   onSubmit() {
     this.errorMsg = this.forgotPasswordValidationService.validateEmail(this.email);
     if (!this.errorMsg) {
-      this.loading = true; // Start loading
+      this.loading = true; 
       const request: ForgotPasswordRequest = { email: this.email };
       this.authService.forgotPassword(request).subscribe({
         next: () => {
-          this.loading = false; // Stop loading
+          this.loading = false; 
           this.goToEmailSent();
         },
         error: (err) => {
-          this.loading = false; // Stop loading
+          this.loading = false; 
           this.errorMsg = err.error?.message || 'Failed to send reset email.';
         }
       });

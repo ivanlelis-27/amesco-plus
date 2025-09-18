@@ -20,7 +20,6 @@ export class UsedVouchers implements OnInit {
     if (this.userId) {
       this.authService.getUserVouchers(this.userId).subscribe({
         next: (vouchers: any[]) => {
-          // Only show vouchers where isUsed is true
           this.vouchers = vouchers.filter(v => v.isUsed === true);
           console.log('Used vouchers to display:', this.vouchers);
           this.cdr.detectChanges();

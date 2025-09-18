@@ -11,9 +11,7 @@ export class GoogleMapsLoaderService {
         return new Promise((resolve, reject) => {
             if (this.apiLoaded) return resolve();
 
-            // Check if script already exists in DOM
             if (document.getElementById('google-maps-script')) {
-                // Wait until window.initMap is called
                 const checkInterval = setInterval(() => {
                     if ((window as any).google?.maps) {
                         clearInterval(checkInterval);

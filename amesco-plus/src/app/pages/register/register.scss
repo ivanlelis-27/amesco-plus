@@ -86,7 +86,7 @@
 
     .form-group {
       flex: 1 1 0;
-      min-width: 0; // Allows flex children to shrink properly
+      min-width: 0;
     }
   }
 
@@ -115,7 +115,6 @@
   text-align: center;
 }
 
-/* Responsive styles */
 @media (max-width: 600px) {
   .header {
     padding: 1.2rem 0.5rem 1rem;

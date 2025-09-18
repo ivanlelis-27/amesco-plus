@@ -10,6 +10,6 @@ export class UnsubscribeSuccess {
   constructor(private router: Router) { }
 
   onOk() {
-    this.router.navigate(['/welcome']); // Redirect to welcome page
+    this.router.navigate(['/welcome']);
   }
 }

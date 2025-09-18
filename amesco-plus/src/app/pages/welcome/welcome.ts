@@ -1,8 +1,5 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Register } from '../register/register';
-import { Login } from '../login/login';
-import { Membercheck } from '../membercheck/membercheck';
 
 @Component({
   selector: 'app-welcome',

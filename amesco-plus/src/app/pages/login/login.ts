@@ -43,8 +43,8 @@ export class Login {
     this.authService.login(loginData).subscribe({
       next: (response) => {
         if (response.token) {
-          localStorage.setItem('jwtToken', response.token); // Store token
-          this.goToDashboard(); // or wherever you want to navigate
+          localStorage.setItem('jwtToken', response.token); 
+          this.goToDashboard();
         } else {
           alert('Login failed: No token received.');
         }
