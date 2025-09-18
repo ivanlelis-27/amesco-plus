@@ -15,9 +15,9 @@
     <div class="halved-circle-bg-2"></div>
 
     <div class="circle-section">
-        <div class="circle points-circle">
+        <button class="circle points-circle" (click)="goToEarnedPoints()">
             <span class="value">{{ points }}</span>
-        </div>
+        </button>
         <div class="points-label">Earned Points</div>
         <button class="circle redeem-circle" (click)="goToCreateVoucher()">
             <fa-icon [icon]="faWallet" class="wallet-icon"></fa-icon>

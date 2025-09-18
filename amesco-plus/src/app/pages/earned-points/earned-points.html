@@ -1,0 +1,28 @@
+<div class="earned-points-container">
+    <div class="earned-points-header">
+        <button class="back-btn" (click)="goBack()">
+            <ion-icon name="chevron-back-outline"></ion-icon>
+        </button>
+        <span class="header-title">Earned Points</span>
+    </div>
+    <div class="transactions-list">
+        <div class="transaction-card" *ngFor="let t of transactions">
+            <div class="transaction-points">+{{ t.transaction.earnedPoints }}</div>
+            <div class="transaction-info">
+                <div class="transaction-products">
+                    <div *ngFor="let prod of t.products" class="transaction-product">
+                        {{ prod.productName }}
+                        <span *ngIf="prod.quantity > 1">(x{{ prod.quantity }})</span>
+                    </div>
+                </div>
+                <div class="transaction-date">{{ t.transaction.dateIssued | date:'MMM d, yyyy' }}</div>
+            </div>
+            <div class="transaction-right">
+                <div class="stars-circle">
+                    <ion-icon name="star" class="star"></ion-icon>
+                    <ion-icon name="star" class="star"></ion-icon>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

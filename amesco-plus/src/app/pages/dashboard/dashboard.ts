@@ -102,6 +102,10 @@ export class Dashboard {
     this.router.navigate(['/generate-qr']);
   }
 
+  goToEarnedPoints() {
+    this.router.navigate(['/earned-points']);
+  }
+
   goToNotifications() {
     this.router.navigate(['/notifications']);
   }
