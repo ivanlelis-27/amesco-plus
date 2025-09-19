@@ -23,28 +23,13 @@ import { jwtDecode } from 'jwt-decode';
     ])
   ]
 })
-export class Dashboard {
-  carouselItems = [
-    { src: '/amescall.png', alt: 'Amescall Banner 1' },
-    { src: '/discount.png', alt: 'Amescall Banner 2' },
-    { src: '/m2.png', alt: 'Amescall Banner 3' },
-    { src: '/telecare.png', alt: 'Amescall Banner 3' },
-    { src: '/fbsrbs.png', alt: 'Amescall Banner 3' },
-  ];
+export class Dashboard implements OnInit, OnDestroy {
+  carouselItems: any[] = [];
   currentSlide = 0;
   showMenu = false;
   closingMenu = false;
   autoScrollInterval: any;
   loadingPoints = false;
-  ngOnInit() {
-    this.startAutoScroll();
-  }
-
-  ngOnDestroy() {
-    if (this.autoScrollInterval) {
-      clearInterval(this.autoScrollInterval);
-    }
-  }
 
   faWallet = faWallet;
   points: number = 0;
@@ -80,6 +65,31 @@ export class Dashboard {
           console.error('Failed to fetch user details:', err);
         }
       });
+    }
+  }
+
+  ngOnInit() {
+    // Fetch banners from backend
+    this.authService.getAdBanners().subscribe({
+      next: (banners: any[]) => {
+        // Convert image data to base64 URLs
+        this.carouselItems = banners.map(b => ({
+          src: `data:${b.contentType};base64,${b.imageData}`,
+          alt: b.fileName
+        }));
+        this.cdr.detectChanges();
+        this.startAutoScroll();
+      },
+      error: (err) => {
+        console.error('Failed to fetch banners:', err);
+        this.startAutoScroll(); // Start auto scroll even if no banners
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.autoScrollInterval) {
+      clearInterval(this.autoScrollInterval);
     }
   }
 

@@ -71,6 +71,10 @@ export class AuthService {
         }
     }
 
+    getAdBanners(): Observable<any[]> {
+        return this.http.get<any[]>('https://localhost:5006/api/adbanners');
+    }
+
     getUserTransactions(userId: number): Observable<any[]> {
         const token = this.getToken();
         const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
