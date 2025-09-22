@@ -117,11 +117,29 @@ export class MemberProfile {
 
   updateProfile() {
     if (this.selectedImageUrl) {
-      this.profileImageUrl = this.selectedImageUrl;
+      fetch(this.selectedImageUrl)
+        .then(res => res.blob())
+        .then(blob => {
+          const file = new File([blob], 'profile.png', { type: blob.type });
+          this.authService.uploadProfileImage(file).subscribe({
+            next: () => {
+              this.profileImage = this.selectedImageUrl; // Update immediately for UI
+              this.showModal = false; // Always close modal after upload
+              this.cdr.detectChanges();
+            },
+            error: () => {
+              alert('Failed to upload image.');
+              this.showModal = false;
+              this.cdr.detectChanges();
+            }
+          });
+        });
+    } else {
+      this.showModal = false;
+      this.cdr.detectChanges();
     }
-    this.showModal = false;
   }
-
+  
   openImagePicker() {
     const input = document.createElement('input');
     input.type = 'file';

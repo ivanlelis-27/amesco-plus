@@ -5,6 +5,7 @@ import { jwtDecode } from 'jwt-decode';
 import { HttpHeaders } from '@angular/common/http';
 
 export interface RegisterRequest {
+    memberId: string;
     email: string;
     password: string;
     confirmPassword: string;
@@ -108,6 +109,14 @@ export class AuthService {
         return this.http.get<any[]>(`https://localhost:5006/api/users/user/${userId}`, { headers });
     }
 
+    uploadProfileImage(file: File): Observable<any> {
+        const formData = new FormData();
+        formData.append('image', file);
+        const token = this.getToken();
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+        return this.http.post('https://localhost:5006/api/users/upload-image', formData, { headers });
+    }
+
     unsubscribe(): Observable<any> {
         const token = this.getToken();
         const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
@@ -119,8 +128,16 @@ export class AuthService {
         localStorage.removeItem(this.userKey);
     }
 
+    getExistingMemberById(memberId: string): Observable<any> {
+        return this.http.get<any>(`https://localhost:5006/api/existingmembers/by-memberid?memberId=${encodeURIComponent(memberId)}`);
+    }
+
     register(data: RegisterRequest): Observable<any> {
         return this.http.post(`${this.apiUrl}/register`, data);
+    }
+
+    getGeneratedMemberId(): Observable<{ memberId: string }> {
+        return this.http.get<{ memberId: string }>('https://localhost:5006/api/auth/generate-memberid');
     }
 
     login(data: LoginRequest): Observable<{ token: string }> {

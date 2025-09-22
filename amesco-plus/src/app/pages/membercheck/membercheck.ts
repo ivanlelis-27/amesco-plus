@@ -1,10 +1,6 @@
 import { Component } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Register } from '../register/register';
-import { Login } from '../login/login';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-membercheck',
@@ -14,7 +10,7 @@ import { Login } from '../login/login';
 })
 
 export class Membercheck {
-  constructor(private router: Router) { }
+  constructor(private router: Router, private authService: AuthService) { }
   memberId: string = '';
   showValidation: boolean = false;
 
@@ -27,19 +23,31 @@ export class Membercheck {
   }
 
   onYesClick(event: Event) {
-    const target = event.target as HTMLElement | null;
-    const btn = (target && target.closest('button')) as HTMLButtonElement | null;
-
     if (!this.memberId || !this.memberId.trim()) {
       this.showValidation = true;
-    } else {
-      this.showValidation = false;
+      return;
     }
+    this.showValidation = false;
 
-    if (btn) {
-      setTimeout(() => {
-        try { btn.blur(); } catch (e) { /* ignore */ }
-      }, 80);
-    }
+    this.authService.getExistingMemberById(this.memberId.trim()).subscribe({
+      next: (member: any) => {
+        // Use mobileNumber from response
+        if (member && member.firstName && member.lastName && member.mobileNumber) {
+          this.router.navigate(['/register'], {
+            state: {
+              memberId: this.memberId,
+              firstName: member.firstName,
+              lastName: member.lastName,
+              mobile: member.mobileNumber,
+            }
+          });
+        } else {
+          this.showValidation = true;
+        }
+      },
+      error: () => {
+        this.showValidation = true;
+      }
+    });
   }
 }

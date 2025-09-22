@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService, RegisterRequest } from '../../services/auth.service';
 import { RegisterValidation } from '../../validations/register-validation';
@@ -10,7 +10,31 @@ import { RegisterValidation } from '../../validations/register-validation';
   styleUrl: './register.scss'
 })
 export class Register {
-  constructor(private router: Router, private authService: AuthService) { }
+  constructor(private router: Router, private authService: AuthService, private cdr: ChangeDetectorRef) {
+    const nav = this.router.getCurrentNavigation();
+    const state = nav?.extras?.state as any;
+    if (state && state.memberId) {
+      this.memberId = state.memberId; // full value for backend
+      this.displayMemberId = (state.memberId.split('-')[0] || '').substring(0, 10); // for UI
+      this.firstName = state.firstName || '';
+      this.lastName = state.lastName || '';
+      this.mobile = state.mobile || '';
+    } else {
+      this.authService.getGeneratedMemberId().subscribe({
+        next: (res) => {
+          this.memberId = res.memberId; // full value for backend
+          this.displayMemberId = (res.memberId.split('-')[0] || '').substring(0, 10); // for UI
+          this.cdr.detectChanges();
+        },
+        error: () => {
+          this.memberId = '';
+          this.displayMemberId = '';
+          this.cdr.detectChanges();
+        }
+      });
+    }
+  }
+
 
   email: string = '';
   password: string = '';
@@ -20,6 +44,8 @@ export class Register {
   mobile: string = '';
   emailPlaceholder: string = 'Enter Text';
   errorMessage: string = '';
+  memberId: string = '';
+  displayMemberId: string = '';
 
   goToLogin() {
     this.router.navigate(['/login']);
@@ -42,6 +68,7 @@ export class Register {
     }
 
     const registerData: RegisterRequest = {
+      memberId: this.memberId,
       email: this.email,
       password: this.password,
       confirmPassword: this.confirmPassword,

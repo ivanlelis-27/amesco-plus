@@ -16,10 +16,11 @@
         <div class="user-profile">
             <div class="outer-yellow-circle">
                 <div class="inner-yellow-circle" (click)="openModal()">
-                    <img *ngIf="profileImage; else defaultImage" [src]="profileImage" alt="Profile"
-                        class="modal-circle-image" />
-                    <ng-template #defaultImage>
-                        <img src="/profile-1.png" alt="Profile" class="modal-circle-image" />
+                    <ng-container *ngIf="profileImage; else yellowBg">
+                        <img [src]="profileImage" alt="Profile" class="modal-circle-image" />
+                    </ng-container>
+                    <ng-template #yellowBg>
+                        <!-- No image: keep yellow background, no default image -->
                     </ng-template>
                 </div>
             </div>

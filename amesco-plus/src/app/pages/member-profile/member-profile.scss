@@ -125,9 +125,12 @@ body {
 .inner-yellow-circle {
     width: 7rem;
     height: 7rem;
-    background: #FFD600;
+    background: #FFD600; // always yellow
     border-radius: 50%;
     border: 1px solid #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .profile-modal {
