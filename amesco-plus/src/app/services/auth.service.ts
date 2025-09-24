@@ -82,6 +82,10 @@ export class AuthService {
         return this.http.get<any[]>(`https://localhost:5006/api/transactions`, { headers });
     }
 
+    getBranches(): Observable<any[]> {
+        return this.http.get<any[]>('https://localhost:5006/api/branches');
+    }
+
     createVoucher(voucherId: number, value: number): Observable<any> {
         const token = this.getToken();
         const user = this.getUserFromToken();
