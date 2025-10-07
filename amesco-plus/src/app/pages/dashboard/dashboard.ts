@@ -2,7 +2,7 @@ import { Component, ChangeDetectorRef, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { faWallet } from '@fortawesome/free-solid-svg-icons';
 import { trigger, transition, style, animate } from '@angular/animations';
-import { AuthService } from '../../services/auth.service';
+import { ApiService } from '../../services/api.service';
 import { jwtDecode } from 'jwt-decode';
 
 
@@ -37,14 +37,14 @@ export class Dashboard implements OnInit, OnDestroy {
   memberName: string = '';
   profileImage: string | null = null;
 
-  constructor(private router: Router, private authService: AuthService, private cdr: ChangeDetectorRef) {
-    const token = this.authService.getToken();
+  constructor(private router: Router, private apiService: ApiService, private cdr: ChangeDetectorRef) {
+    const token = this.apiService.getToken();
     if (token) {
       const user: any = jwtDecode(token);
       this.memberId = user.memberId || '';
       this.memberName = `${user.firstName || ''} ${user.lastName || ''}`.trim();
 
-      this.authService.getCurrentUserDetails().subscribe({
+      this.apiService.getCurrentUserDetails().subscribe({
         next: (details: any) => {
           this.points = details.points ?? 0;
 
@@ -70,7 +70,7 @@ export class Dashboard implements OnInit, OnDestroy {
 
   ngOnInit() {
     // Fetch banners from backend
-    this.authService.getAdBanners().subscribe({
+    this.apiService.getAdBanners().subscribe({
       next: (banners: any[]) => {
         // Convert image data to base64 URLs
         this.carouselItems = banners.map(b => ({
@@ -126,7 +126,7 @@ export class Dashboard implements OnInit, OnDestroy {
 
   goToCreateVoucher() {
     this.loadingPoints = true;
-    this.authService.getCurrentUserDetails().subscribe({
+    this.apiService.getCurrentUserDetails().subscribe({
       next: (details: any) => {
         this.loadingPoints = false;
         this.router.navigate(['/create-voucher'], { state: { points: details.points ?? 0 } });

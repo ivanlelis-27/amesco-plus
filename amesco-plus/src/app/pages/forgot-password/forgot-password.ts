@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ForgotPasswordValidationService } from '../../validations/forgot-password-validation';
-import { AuthService, ForgotPasswordRequest } from '../../services/auth.service';
+import { ApiService, ForgotPasswordRequest } from '../../services/api.service';
 
 @Component({
   selector: 'app-forgot-password',
@@ -14,7 +14,7 @@ export class ForgotPassword {
   errorMsg: string | null = null;
   loading: boolean = false;
 
-  constructor(private router: Router, private forgotPasswordValidationService: ForgotPasswordValidationService, private authService: AuthService) { }
+  constructor(private router: Router, private forgotPasswordValidationService: ForgotPasswordValidationService, private apiService: ApiService) { }
 
   goToLogin() {
     this.router.navigate(['/login']);
@@ -27,15 +27,15 @@ export class ForgotPassword {
   onSubmit() {
     this.errorMsg = this.forgotPasswordValidationService.validateEmail(this.email);
     if (!this.errorMsg) {
-      this.loading = true; 
+      this.loading = true;
       const request: ForgotPasswordRequest = { email: this.email };
-      this.authService.forgotPassword(request).subscribe({
+      this.apiService.forgotPassword(request).subscribe({
         next: () => {
-          this.loading = false; 
+          this.loading = false;
           this.goToEmailSent();
         },
         error: (err) => {
-          this.loading = false; 
+          this.loading = false;
           this.errorMsg = err.error?.message || 'Failed to send reset email.';
         }
       });

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { HttpClient } from '@angular/common/http';
-import { AuthService } from '../../services/auth.service';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-change-password',
@@ -27,7 +27,7 @@ export class ChangePassword {
   constructor(
     private router: Router,
     private http: HttpClient,
-    private authService: AuthService
+    private apiService: ApiService
   ) { }
 
 
@@ -41,7 +41,7 @@ export class ChangePassword {
       return;
     }
 
-    const token = this.authService.getToken();
+    const token = this.apiService.getToken();
     if (!token) {
       alert("You are not authenticated.");
       return;

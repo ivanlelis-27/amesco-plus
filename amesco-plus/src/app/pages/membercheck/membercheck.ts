@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-membercheck',
@@ -10,7 +10,7 @@ import { AuthService } from '../../services/auth.service';
 })
 
 export class Membercheck {
-  constructor(private router: Router, private authService: AuthService) { }
+  constructor(private router: Router, private apiService: ApiService) { }
   memberId: string = '';
   showValidation: boolean = false;
 
@@ -29,7 +29,7 @@ export class Membercheck {
     }
     this.showValidation = false;
 
-    this.authService.getExistingMemberById(this.memberId.trim()).subscribe({
+    this.apiService.getExistingMemberById(this.memberId.trim()).subscribe({
       next: (member: any) => {
         // Use mobileNumber from response
         if (member && member.firstName && member.lastName && member.mobileNumber) {

@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
+import { ApiService } from '../../services/api.service';
 import { validateVoucher } from '../../validations/voucher-validation';
 
 @Component({
@@ -20,13 +20,13 @@ export class CreateVoucher implements OnInit {
     { value: 500 }
   ];
 
-  constructor(private router: Router, private authService: AuthService, private cdr: ChangeDetectorRef) { }
+  constructor(private router: Router, private apiService: ApiService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
     const nav = this.router.getCurrentNavigation();
     this.points = nav?.extras?.state?.['points'] ?? null;
     this.voucherNumber = this.generateRandomVoucherNumber();
-    this.authService.getCurrentUserDetails().subscribe({
+    this.apiService.getCurrentUserDetails().subscribe({
       next: (details: any) => {
         this.points = details.points ?? 0;
         this.cdr.detectChanges();
@@ -47,7 +47,7 @@ export class CreateVoucher implements OnInit {
   createVoucher() {
     const voucherId = Number(this.voucherNumber);
     const value = Number(this.voucherInput);
-    this.authService.createVoucher(voucherId, value).subscribe({
+    this.apiService.createVoucher(voucherId, value).subscribe({
       next: (res) => {
         this.router.navigate(['/congratulations'], {
           state: {

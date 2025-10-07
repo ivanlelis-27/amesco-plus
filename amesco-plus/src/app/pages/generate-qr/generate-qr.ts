@@ -1,6 +1,6 @@
 import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
+import { ApiService } from '../../services/api.service';
 
 
 @Component({
@@ -16,12 +16,12 @@ export class GenerateQr implements OnInit {
 
   constructor(
     private router: Router,
-    private authService: AuthService,
+    private apiService: ApiService,
     private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
-    this.authService.getCurrentUserDetails().subscribe({
+    this.apiService.getCurrentUserDetails().subscribe({
       next: (details: any) => {
         const fullId = details.memberId || '';
         this.memberId = fullId.includes('-') ? fullId.split('-')[1] : fullId;
@@ -31,7 +31,7 @@ export class GenerateQr implements OnInit {
       error: (err) => console.error(err)
     });
 
-    this.authService.getUserQr().subscribe({
+    this.apiService.getUserQr().subscribe({
       next: (res: any) => {
         this.qrImage = 'data:image/png;base64,' + res.qrImage;
         this.cdr.detectChanges();

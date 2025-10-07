@@ -1,11 +1,19 @@
 <div class="notifications" @slideInRight>
     <div class="header">
-        <button class="refresh-icon">
+        <div class="refresh-icon" (click)="onRefreshClick()">
             <ion-icon name="refresh-outline"></ion-icon>
-        </button>
+        </div>
         <button class="back-icon" (click)="goBack()">
             <ion-icon name="chevron-back-outline"></ion-icon>
         </button>
         <h1 class="title">Notifications</h1>
+    </div>
+    <div class="notifications-list">
+        <div class="notification-card" *ngFor="let notif of notifications">
+            <h2 class="notif-title">{{ notif.title }}</h2>
+            <p class="notif-desc">{{ notif.description }}</p>
+            <p class="notif-message">{{ notif.messageBody }}</p>
+            <span class="notif-date">{{ notif.scheduledAt | date:'medium' }}</span>
+        </div>
     </div>
 </div>

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { AuthService } from '../../services/auth.service';
+import { ApiService } from '../../services/api.service';
 import { trigger, transition, style, animate } from '@angular/animations';
 
 @Component({
@@ -22,14 +22,14 @@ import { trigger, transition, style, animate } from '@angular/animations';
   ]
 })
 export class Unsubscribe {
-  constructor(private router: Router, private location: Location, private authService: AuthService) { }
+  constructor(private router: Router, private location: Location, private apiService: ApiService) { }
 
   onCancel() {
     this.location.back();
   }
 
   onUnsubscribe() {
-    this.authService.unsubscribe().subscribe({
+    this.apiService.unsubscribe().subscribe({
       next: (res) => {
         console.log('Unsubscribed successfully:', res);
         if (res && res.message === 'Account deleted successfully.') {

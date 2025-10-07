@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
+import { ApiService } from '../../services/api.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -14,10 +14,10 @@ export class EarnedPoints implements OnInit, OnDestroy {
   userId: number | null = null;
   private sub!: Subscription;
 
-  constructor(private router: Router, private authService: AuthService, private cdr: ChangeDetectorRef) { }
+  constructor(private router: Router, private apiService: ApiService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
-    const user = this.authService.getUserFromToken();
+    const user = this.apiService.getUserFromToken();
     this.userId = Number(user?.sub);
 
     this.loadTransactions();
@@ -36,7 +36,7 @@ export class EarnedPoints implements OnInit, OnDestroy {
 
   private loadTransactions() {
     if (this.userId) {
-      this.authService.getUserTransactions(this.userId).subscribe({
+      this.apiService.getUserTransactions(this.userId).subscribe({
         next: (allTransactions: any[]) => {
           this.transactions = allTransactions.filter(
             t => t.transaction.userId === this.userId

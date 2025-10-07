@@ -24,7 +24,7 @@ export interface ForgotPasswordRequest {
 }
 
 @Injectable({ providedIn: 'root' })
-export class AuthService {
+export class ApiService {
     private apiUrl = 'https://localhost:5006/api/auth';
     private tokenKey = 'jwtToken';
     private userKey = 'currentUser';
@@ -84,6 +84,10 @@ export class AuthService {
 
     getBranches(): Observable<any[]> {
         return this.http.get<any[]>('https://localhost:5006/api/branches');
+    }
+
+    getNotifications(): Observable<any[]> {
+        return this.http.get<any[]>('https://localhost:5006/api/notifications/list');
     }
 
     createVoucher(voucherId: number, value: number): Observable<any> {

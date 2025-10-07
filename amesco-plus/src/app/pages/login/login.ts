@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ValidationService } from '../../validations/login-validation';
-import { AuthService, LoginRequest } from '../../services/auth.service';
+import { ApiService, LoginRequest } from '../../services/api.service';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +18,7 @@ export class Login {
     this.showPassword = !this.showPassword;
   }
 
-  constructor(private router: Router, private validationService: ValidationService, private authService: AuthService) { }
+  constructor(private router: Router, private validationService: ValidationService, private apiService: ApiService) { }
 
   goToMemberCheck() {
     this.router.navigate(['/membercheck']);
@@ -40,10 +40,10 @@ export class Login {
     }
 
     const loginData: LoginRequest = { email: this.email, password: this.password };
-    this.authService.login(loginData).subscribe({
+    this.apiService.login(loginData).subscribe({
       next: (response) => {
         if (response.token) {
-          localStorage.setItem('jwtToken', response.token); 
+          localStorage.setItem('jwtToken', response.token);
           this.goToDashboard();
         } else {
           alert('Login failed: No token received.');

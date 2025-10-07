@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
+import { ApiService } from '../../services/api.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -15,13 +15,13 @@ export class UnusedVouchers implements OnInit {
   modalClosing = false;
   selectedVoucher: any = null;
 
-  constructor(private authService: AuthService, private router: Router, private cdr: ChangeDetectorRef) { }
+  constructor(private apiService: ApiService, private router: Router, private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
-    const user = this.authService.getUserFromToken();
+    const user = this.apiService.getUserFromToken();
     this.userId = Number(user?.sub);
     if (this.userId) {
-      this.authService.getUserVouchers(this.userId).subscribe({
+      this.apiService.getUserVouchers(this.userId).subscribe({
         next: (vouchers: any[]) => {
           this.vouchers = vouchers.filter(v => v.isUsed === false);
           console.log('Unused vouchers to display:', this.vouchers);
@@ -60,7 +60,7 @@ export class UnusedVouchers implements OnInit {
 
   confirmDelete() {
     if (!this.selectedVoucher?.voucherCode) return;
-    this.authService.deleteVoucher(this.selectedVoucher.voucherCode).subscribe({
+    this.apiService.deleteVoucher(this.selectedVoucher.voucherCode).subscribe({
       next: (res) => {
         this.vouchers = this.vouchers.filter(
           v => v.voucherCode !== this.selectedVoucher.voucherCode

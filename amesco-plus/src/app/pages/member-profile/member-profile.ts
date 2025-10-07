@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { faImage, faPen, faUser, faMobileAlt, faEnvelope, faClipboardList, faBookOpen, faFingerprint, faTimesCircle, faTimes, faCheck } from '@fortawesome/free-solid-svg-icons';
 import { ChangeDetectorRef } from '@angular/core';
 import { trigger, transition, style, animate } from '@angular/animations';
-import { AuthService } from '../../services/auth.service';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-member-profile',
@@ -26,9 +26,9 @@ export class MemberProfile {
   constructor(
     private router: Router,
     private cdr: ChangeDetectorRef,
-    private authService: AuthService
+    private apiService: ApiService
   ) {
-    this.authService.getCurrentUserDetails().subscribe({
+    this.apiService.getCurrentUserDetails().subscribe({
       next: (details: any) => {
         this.name = details.name || '';
         this.mobile = details.mobile || '';
@@ -121,7 +121,7 @@ export class MemberProfile {
         .then(res => res.blob())
         .then(blob => {
           const file = new File([blob], 'profile.png', { type: blob.type });
-          this.authService.uploadProfileImage(file).subscribe({
+          this.apiService.uploadProfileImage(file).subscribe({
             next: () => {
               this.profileImage = this.selectedImageUrl; // Update immediately for UI
               this.showModal = false; // Always close modal after upload
@@ -139,7 +139,7 @@ export class MemberProfile {
       this.cdr.detectChanges();
     }
   }
-  
+
   openImagePicker() {
     const input = document.createElement('input');
     input.type = 'file';

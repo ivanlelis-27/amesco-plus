@@ -1,6 +1,6 @@
 import { Component, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
+import { ApiService } from '../../services/api.service';
 
 
 @Component({
@@ -15,10 +15,10 @@ export class Branches {
   branches: any[] = [];
 
 
-  constructor(private router: Router, private authService: AuthService, private cdr: ChangeDetectorRef) { }
+  constructor(private router: Router, private apiService: ApiService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
-    this.authService.getBranches().subscribe({
+    this.apiService.getBranches().subscribe({
       next: (branches: any[]) => {
         this.branches = branches.map(b => ({
           branchName: b.branchName,
