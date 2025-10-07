@@ -86,8 +86,30 @@ export class ApiService {
         return this.http.get<any[]>('https://localhost:5006/api/branches');
     }
 
-    getNotifications(): Observable<any[]> {
-        return this.http.get<any[]>('https://localhost:5006/api/notifications/list');
+    getNotifications(userId: number): Observable<any[]> {
+        const token = this.getToken();
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+        return this.http.get<any[]>(`https://localhost:5006/api/notifications/list?userId=${userId}`);
+    }
+
+    likeNotification(notificationId: number, userId: number): Observable<any> {
+        const token = this.getToken();
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+        return this.http.post(
+            `https://localhost:5006/api/notifications/like?notificationId=${notificationId}&userId=${userId}`,
+            {}, // empty body
+            { headers }
+        );
+    }
+
+    unlikeNotification(notificationId: number, userId: number): Observable<any> {
+        const token = this.getToken();
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+        return this.http.post(
+            `https://localhost:5006/api/notifications/unlike?notificationId=${notificationId}&userId=${userId}`,
+            {}, // empty body
+            { headers }
+        );
     }
 
     createVoucher(voucherId: number, value: number): Observable<any> {

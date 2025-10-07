@@ -24,6 +24,7 @@ import { trigger, transition, style, animate } from '@angular/animations';
 export class Notifications implements OnInit, OnDestroy {
   notifications: any[] = [];
   private notifSub?: Subscription;
+  userId: number | null = null;
 
   constructor(
     private router: Router,
@@ -32,7 +33,11 @@ export class Notifications implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+    const user = this.apiService.getUserFromToken();
+    this.userId = user?.sub || null;
     this.fetchNotifications();
+    console.log('userID:', this.userId); // Debug log
+
   }
 
   ngOnDestroy() {
@@ -42,7 +47,8 @@ export class Notifications implements OnInit, OnDestroy {
   }
 
   fetchNotifications() {
-    this.notifSub = this.apiService.getNotifications().subscribe({
+    if (!this.userId) return;
+    this.notifSub = this.apiService.getNotifications(this.userId).subscribe({
       next: (data) => {
         this.notifications = data;
         this.cdr.detectChanges();
@@ -55,6 +61,38 @@ export class Notifications implements OnInit, OnDestroy {
 
   onRefreshClick() {
     this.fetchNotifications();
+  }
+
+  onLikeClick(notificationId: number) {
+    if (!this.userId) return;
+    const notif = this.notifications.find(n => n.notificationId === notificationId);
+    if (!notif) return;
+
+    if (notif.liked) {
+      // Instantly update UI to outline heart
+      notif.liked = false;
+      this.apiService.unlikeNotification(notificationId, this.userId).subscribe({
+        next: () => {
+          // Optionally handle success
+        },
+        error: (err) => {
+          notif.liked = true; // revert if error
+          console.error('Failed to unlike notification:', err);
+        }
+      });
+    } else {
+      // Instantly update UI to filled heart
+      notif.liked = true;
+      this.apiService.likeNotification(notificationId, this.userId).subscribe({
+        next: () => {
+          // Optionally handle success
+        },
+        error: (err) => {
+          notif.liked = false; // revert if error
+          console.error('Failed to like notification:', err);
+        }
+      });
+    }
   }
 
   goBack() {
