@@ -17,14 +17,24 @@ export class Branches {
 
   constructor(private router: Router, private apiService: ApiService, private cdr: ChangeDetectorRef) { }
 
+  formatTime(time: string): string {
+    if (!time) return '';
+    let [hour, minute] = time.split(':');
+    let h = Number(hour);
+    const ampm = h >= 12 ? 'PM' : 'AM';
+    h = h % 12 || 12;
+    return `${h}${ampm}`;
+  }
+
   ngOnInit() {
     this.apiService.getBranches().subscribe({
       next: (branches: any[]) => {
         this.branches = branches.map(b => ({
+          branchID: b.branchID,
           branchName: b.branchName,
           address: b.address,
           contact: b.contact,
-          hours: b.hours,
+          hours: `${b.startDay}-${b.endDay}: ${this.formatTime(b.openTime)} to ${this.formatTime(b.closeTime)}`,
           lat: b.latitude,
           lng: b.longitude
         }));
