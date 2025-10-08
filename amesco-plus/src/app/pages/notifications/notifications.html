@@ -10,6 +10,13 @@
     </div>
     <div class="notifications-list">
         <div class="notification-card" *ngFor="let notif of notifications | filterScheduledBeforeToday" @slideInRight>
+            <div class="notif-image-container">
+                <img *ngIf="notif.imageBase64" [src]="'data:image/png;base64,' + notif.imageBase64"
+                    class="notif-image" />
+                <div *ngIf="!notif.imageBase64" class="notif-image-blank">
+                    <span>No image</span>
+                </div>
+            </div>
             <h2 class="notif-title">{{ notif.title }}</h2>
             <p class="notif-desc">{{ notif.description }}</p>
             <p class="notif-message">{{ notif.messageBody }}</p>
