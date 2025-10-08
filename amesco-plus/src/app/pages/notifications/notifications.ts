@@ -4,6 +4,7 @@ import { ApiService } from '../../services/api.service';
 import { Subscription } from 'rxjs';
 import { trigger, transition, style, animate } from '@angular/animations';
 
+
 @Component({
   selector: 'app-notifications',
   standalone: false,
@@ -21,6 +22,7 @@ import { trigger, transition, style, animate } from '@angular/animations';
     ])
   ]
 })
+
 export class Notifications implements OnInit, OnDestroy {
   notifications: any[] = [];
   private notifSub?: Subscription;

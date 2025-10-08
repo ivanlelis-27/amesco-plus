@@ -9,11 +9,11 @@
         <h1 class="title">Notifications</h1>
     </div>
     <div class="notifications-list">
-        <div class="notification-card" *ngFor="let notif of notifications" @slideInRight>
+        <div class="notification-card" *ngFor="let notif of notifications | filterScheduledBeforeToday" @slideInRight>
             <h2 class="notif-title">{{ notif.title }}</h2>
             <p class="notif-desc">{{ notif.description }}</p>
             <p class="notif-message">{{ notif.messageBody }}</p>
-            <span class="notif-date">Scheduled: {{ notif.scheduledAt | date:'medium' }}</span>
+            <span class="notif-date">{{ notif.scheduledAt | date:'medium' }}</span>
             <div class="like-icon" (click)="onLikeClick(notif.notificationId)">
                 <ion-icon [name]="notif.liked ? 'heart' : 'heart-outline'"></ion-icon>
             </div>
