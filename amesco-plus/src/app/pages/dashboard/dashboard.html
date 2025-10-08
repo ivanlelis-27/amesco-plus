@@ -1,7 +1,7 @@
 <div class="dashboard" @slideInLeft>
 
     <div class="header">
-        <span class="sync-icon">
+        <span class="sync-icon" (click)="syncDashboard()">
             <ion-icon name="sync-outline"></ion-icon>
         </span>
         <button class="qr-icon" (click)="goToGenerateQr()">
@@ -40,10 +40,11 @@
 
     <div class="right-circles-bg"></div>
     <div class="right-circles-section">
-        <button class="small-circle" (click)="goToNotifications()">
+        <button class="small-circle" (click)="goToNotifications()" style="position: relative;">
             <span class="icon">
                 <ion-icon name="notifications-outline"></ion-icon>
             </span>
+            <span *ngIf="notificationCount > 0" class="notification-badge">{{ notificationCount }}</span>
         </button>
         <div class="small-circle" (click)="goToChangePassword()">
             <span class="icon">

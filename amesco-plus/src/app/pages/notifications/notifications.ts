@@ -61,6 +61,26 @@ export class Notifications implements OnInit, OnDestroy {
     });
   }
 
+  get visibleNotificationsCount(): number {
+    const now = new Date();
+    const todayYear = now.getFullYear();
+    const todayMonth = now.getMonth();
+    const todayDate = now.getDate();
+
+    return this.notifications.filter(n => {
+      const notifDate = new Date(n.scheduledAt);
+      const notifYear = notifDate.getFullYear();
+      const notifMonth = notifDate.getMonth();
+      const notifDay = notifDate.getDate();
+
+      return (
+        notifYear < todayYear ||
+        (notifYear === todayYear && notifMonth < todayMonth) ||
+        (notifYear === todayYear && notifMonth === todayMonth && notifDay <= todayDate)
+      );
+    }).length;
+  }
+
   onRefreshClick() {
     this.fetchNotifications();
   }

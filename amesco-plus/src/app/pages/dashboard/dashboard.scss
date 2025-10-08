@@ -283,6 +283,26 @@ body {
     color: #fff;
 }
 
+.notification-badge {
+    position: absolute;
+    top: 0.2rem;
+    right: 0.2rem;
+    background: #B50E1F;
+    color: #fff;
+    border-radius: 50%;
+    min-width: 1.2rem;
+    height: 1.2rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    padding: 0 0.3rem;
+    box-shadow: 0 0 2px #fff;
+    border: 1px solid #fff;
+}
+
 .carousel-footer {
     position: fixed;
     left: 0;

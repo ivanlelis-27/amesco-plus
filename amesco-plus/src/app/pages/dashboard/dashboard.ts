@@ -1,5 +1,5 @@
 import { Component, ChangeDetectorRef, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { faWallet } from '@fortawesome/free-solid-svg-icons';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { ApiService } from '../../services/api.service';
@@ -37,6 +37,9 @@ export class Dashboard implements OnInit, OnDestroy {
   memberName: string = '';
   profileImage: string | null = null;
 
+  notificationCount: number = 0;
+  notificationsChecked: boolean = false;
+
   constructor(private router: Router, private apiService: ApiService, private cdr: ChangeDetectorRef) {
     const token = this.apiService.getToken();
     if (token) {
@@ -68,6 +71,8 @@ export class Dashboard implements OnInit, OnDestroy {
     }
   }
 
+  private routerEventsSub: any;
+
   ngOnInit() {
     // Fetch banners from backend
     this.apiService.getAdBanners().subscribe({
@@ -85,11 +90,23 @@ export class Dashboard implements OnInit, OnDestroy {
         this.startAutoScroll(); // Start auto scroll even if no banners
       }
     });
+    this.notificationsChecked = false;
+    this.updateNotificationCount();
+
+    // Listen for navigation events to dashboard
+    this.routerEventsSub = this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd && event.urlAfterRedirects === '/dashboard') {
+        this.updateNotificationCount();
+      }
+    });
   }
 
   ngOnDestroy() {
     if (this.autoScrollInterval) {
       clearInterval(this.autoScrollInterval);
+    }
+    if (this.routerEventsSub) {
+      this.routerEventsSub.unsubscribe();
     }
   }
 
@@ -108,6 +125,69 @@ export class Dashboard implements OnInit, OnDestroy {
     }
   }
 
+  updateNotificationCount() {
+    const user = this.apiService.getUserFromToken();
+    const userId = user?.sub || null;
+    if (!userId) return;
+
+    // Get read notification IDs from localStorage
+    const readIds: number[] = JSON.parse(localStorage.getItem('readNotificationIds') || '[]');
+    this.apiService.getNotifications(userId).subscribe({
+      next: (data) => {
+        const now = new Date();
+        const todayYear = now.getFullYear();
+        const todayMonth = now.getMonth();
+        const todayDate = now.getDate();
+
+        // Only count visible and unread notifications
+        let count = data.filter(n => {
+          const notifDate = new Date(n.scheduledAt);
+          const notifYear = notifDate.getFullYear();
+          const notifMonth = notifDate.getMonth();
+          const notifDay = notifDate.getDate();
+          const isVisible =
+            notifYear < todayYear ||
+            (notifYear === todayYear && notifMonth < todayMonth) ||
+            (notifYear === todayYear && notifMonth === todayMonth && notifDay <= todayDate);
+
+          // Only count if not read
+          return isVisible && !readIds.includes(n.notificationId);
+        }).length;
+
+        this.notificationCount = count;
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        this.notificationCount = 0;
+      }
+    });
+  }
+
+  syncDashboard() {
+    // Refetch points
+    this.apiService.getCurrentUserDetails().subscribe({
+      next: (details: any) => {
+        this.points = details.points ?? 0;
+        this.memberId = details.memberId ?? this.memberId;
+        this.memberName = details.name ?? this.memberName;
+        if (details.profileImage) {
+          const imgType = details.profileImageType ?? 'png';
+          this.profileImage = `data:image/${imgType};base64,${details.profileImage}`;
+        } else {
+          this.profileImage = null;
+        }
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.error('Failed to fetch user details:', err);
+      }
+    });
+
+    // Refetch notifications and update badge
+    this.updateNotificationCount();
+  }
+
+
   goToGenerateQr() {
     this.router.navigate(['/generate-qr']);
   }
@@ -117,7 +197,49 @@ export class Dashboard implements OnInit, OnDestroy {
   }
 
   goToNotifications() {
-    this.router.navigate(['/notifications']);
+    // Mark all visible notifications as read
+    const user = this.apiService.getUserFromToken();
+    const userId = user?.sub || null;
+    if (!userId) {
+      this.router.navigate(['/notifications']);
+      return;
+    }
+
+    this.apiService.getNotifications(userId).subscribe({
+      next: (data) => {
+        const now = new Date();
+        const todayYear = now.getFullYear();
+        const todayMonth = now.getMonth();
+        const todayDate = now.getDate();
+
+        // Get current read IDs
+        const readIds: number[] = JSON.parse(localStorage.getItem('readNotificationIds') || '[]');
+
+        // Find all visible notification IDs
+        const visibleIds = data.filter(n => {
+          const notifDate = new Date(n.scheduledAt);
+          const notifYear = notifDate.getFullYear();
+          const notifMonth = notifDate.getMonth();
+          const notifDay = notifDate.getDate();
+          return (
+            notifYear < todayYear ||
+            (notifYear === todayYear && notifMonth < todayMonth) ||
+            (notifYear === todayYear && notifMonth === todayMonth && notifDay <= todayDate)
+          );
+        }).map(n => n.notificationId);
+
+        // Merge and deduplicate
+        const updatedIds = Array.from(new Set([...readIds, ...visibleIds]));
+        localStorage.setItem('readNotificationIds', JSON.stringify(updatedIds));
+
+        this.notificationCount = 0;
+        this.cdr.detectChanges();
+        this.router.navigate(['/notifications']);
+      },
+      error: () => {
+        this.router.navigate(['/notifications']);
+      }
+    });
   }
 
   goToChangePassword() {
