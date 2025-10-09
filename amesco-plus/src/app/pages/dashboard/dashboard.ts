@@ -130,8 +130,8 @@ export class Dashboard implements OnInit, OnDestroy {
     const userId = user?.sub || null;
     if (!userId) return;
 
-    // Get read notification IDs from localStorage
-    const readIds: number[] = JSON.parse(localStorage.getItem('readNotificationIds') || '[]');
+    // Get read notification IDs from localStorage (user-specific key)
+    const readIds: number[] = JSON.parse(localStorage.getItem(`readNotificationIds_${userId}`) || '[]');
     this.apiService.getNotifications(userId).subscribe({
       next: (data) => {
         const now = new Date();
@@ -212,8 +212,8 @@ export class Dashboard implements OnInit, OnDestroy {
         const todayMonth = now.getMonth();
         const todayDate = now.getDate();
 
-        // Get current read IDs
-        const readIds: number[] = JSON.parse(localStorage.getItem('readNotificationIds') || '[]');
+        // Get current read IDs (user-specific key)
+        const readIds: number[] = JSON.parse(localStorage.getItem(`readNotificationIds_${userId}`) || '[]');
 
         // Find all visible notification IDs
         const visibleIds = data.filter(n => {
@@ -230,7 +230,7 @@ export class Dashboard implements OnInit, OnDestroy {
 
         // Merge and deduplicate
         const updatedIds = Array.from(new Set([...readIds, ...visibleIds]));
-        localStorage.setItem('readNotificationIds', JSON.stringify(updatedIds));
+        localStorage.setItem(`readNotificationIds_${userId}`, JSON.stringify(updatedIds));
 
         this.notificationCount = 0;
         this.cdr.detectChanges();
