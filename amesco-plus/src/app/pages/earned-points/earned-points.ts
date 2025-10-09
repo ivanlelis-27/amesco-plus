@@ -11,14 +11,14 @@ import { Subscription } from 'rxjs';
 })
 export class EarnedPoints implements OnInit, OnDestroy {
   transactions: any[] = [];
-  userId: number | null = null;
+  memberId: string | null = null;
   private sub!: Subscription;
 
   constructor(private router: Router, private apiService: ApiService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
     const user = this.apiService.getUserFromToken();
-    this.userId = Number(user?.sub);
+    this.memberId = user?.memberId || null;
 
     this.loadTransactions();
 
@@ -35,11 +35,11 @@ export class EarnedPoints implements OnInit, OnDestroy {
   }
 
   private loadTransactions() {
-    if (this.userId) {
-      this.apiService.getUserTransactions(this.userId).subscribe({
+    if (this.memberId) {
+      this.apiService.getUserTransactions(this.memberId).subscribe({
         next: (allTransactions: any[]) => {
           this.transactions = allTransactions.filter(
-            t => t.transaction.userId === this.userId
+            t => t.memberId === this.memberId
           );
           console.log('Grouped transactions:', this.transactions);
           this.cdr.detectChanges();

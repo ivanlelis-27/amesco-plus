@@ -76,7 +76,7 @@ export class ApiService {
         return this.http.get<any[]>('https://localhost:5006/api/adbanners');
     }
 
-    getUserTransactions(userId: number): Observable<any[]> {
+    getUserTransactions(memberId: string): Observable<any[]> {
         const token = this.getToken();
         const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
         return this.http.get<any[]>(`https://localhost:5006/api/transactions`, { headers });
@@ -86,13 +86,13 @@ export class ApiService {
         return this.http.get<any[]>('https://localhost:5006/api/branches');
     }
 
-    getNotifications(userId: number): Observable<any[]> {
+    getNotifications(userId: string): Observable<any[]> {
         const token = this.getToken();
         const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
         return this.http.get<any[]>(`https://localhost:5006/api/notifications/list?userId=${userId}`);
     }
 
-    likeNotification(notificationId: number, userId: number): Observable<any> {
+    likeNotification(notificationId: number, userId: string): Observable<any> {
         const token = this.getToken();
         const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
         return this.http.post(
@@ -102,7 +102,7 @@ export class ApiService {
         );
     }
 
-    unlikeNotification(notificationId: number, userId: number): Observable<any> {
+    unlikeNotification(notificationId: number, userId: string): Observable<any> {
         const token = this.getToken();
         const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
         return this.http.post(
@@ -118,7 +118,7 @@ export class ApiService {
         const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
         const body = {
             voucherId,
-            userId: Number(user?.sub),
+            UserId: user?.memberId,
             value
         };
         return this.http.post('https://localhost:5006/api/vouchers/create', body, { headers });
@@ -133,10 +133,10 @@ export class ApiService {
         );
     }
 
-    getUserVouchers(userId: number): Observable<any[]> {
+    getUserVouchers(memberId: string): Observable<any[]> {
         const token = this.getToken();
         const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-        return this.http.get<any[]>(`https://localhost:5006/api/users/user/${userId}`, { headers });
+        return this.http.get<any[]>(`https://localhost:5006/api/users/user/${memberId}`, { headers });
     }
 
     uploadProfileImage(file: File): Observable<any> {

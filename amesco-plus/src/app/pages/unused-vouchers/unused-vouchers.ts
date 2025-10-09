@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class UnusedVouchers implements OnInit {
   vouchers: any[] = [];
-  userId: number | null = null;
+  memberId: string | null = null;
   modalOpen = false;
   modalClosing = false;
   selectedVoucher: any = null;
@@ -19,9 +19,9 @@ export class UnusedVouchers implements OnInit {
 
   ngOnInit() {
     const user = this.apiService.getUserFromToken();
-    this.userId = Number(user?.sub);
-    if (this.userId) {
-      this.apiService.getUserVouchers(this.userId).subscribe({
+    this.memberId = user?.memberId || null;
+    if (this.memberId) {
+      this.apiService.getUserVouchers(this.memberId).subscribe({
         next: (vouchers: any[]) => {
           this.vouchers = vouchers.filter(v => v.isUsed === false);
           console.log('Unused vouchers to display:', this.vouchers);

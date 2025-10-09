@@ -26,7 +26,7 @@ import { trigger, transition, style, animate } from '@angular/animations';
 export class Notifications implements OnInit, OnDestroy {
   notifications: any[] = [];
   private notifSub?: Subscription;
-  userId: number | null = null;
+  memberId: string | null = null;
 
   constructor(
     private router: Router,
@@ -36,9 +36,9 @@ export class Notifications implements OnInit, OnDestroy {
 
   ngOnInit() {
     const user = this.apiService.getUserFromToken();
-    this.userId = user?.sub || null;
+    this.memberId = user?.memberId || null;
     this.fetchNotifications();
-    console.log('userID:', this.userId); // Debug log
+    console.log('memberId:', this.memberId); // Debug log
 
   }
 
@@ -49,8 +49,8 @@ export class Notifications implements OnInit, OnDestroy {
   }
 
   fetchNotifications() {
-    if (!this.userId) return;
-    this.notifSub = this.apiService.getNotifications(this.userId).subscribe({
+    if (!this.memberId) return;
+    this.notifSub = this.apiService.getNotifications(this.memberId).subscribe({
       next: (data) => {
         this.notifications = data;
         this.cdr.detectChanges();
@@ -86,14 +86,14 @@ export class Notifications implements OnInit, OnDestroy {
   }
 
   onLikeClick(notificationId: number) {
-    if (!this.userId) return;
+    if (!this.memberId) return;
     const notif = this.notifications.find(n => n.notificationId === notificationId);
     if (!notif) return;
 
     if (notif.liked) {
       // Instantly update UI to outline heart
       notif.liked = false;
-      this.apiService.unlikeNotification(notificationId, this.userId).subscribe({
+      this.apiService.unlikeNotification(notificationId, this.memberId).subscribe({
         next: () => {
           // Optionally handle success
         },
@@ -105,7 +105,7 @@ export class Notifications implements OnInit, OnDestroy {
     } else {
       // Instantly update UI to filled heart
       notif.liked = true;
-      this.apiService.likeNotification(notificationId, this.userId).subscribe({
+      this.apiService.likeNotification(notificationId, this.memberId).subscribe({
         next: () => {
           // Optionally handle success
         },
