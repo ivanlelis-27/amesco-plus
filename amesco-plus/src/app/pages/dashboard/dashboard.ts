@@ -59,13 +59,15 @@ export class Dashboard implements OnInit, OnDestroy {
       this.memberId = user.memberId || '';
       this.memberName = `${user.firstName || ''} ${user.lastName || ''}`.trim();
 
+      // Preload notifications as soon as user logs in
+      this.apiService.preloadNotifications(this.memberId);
+
       this.apiService.getCurrentUserDetails().subscribe({
         next: (details: any) => {
           this.points = details.points ?? 0;
 
           this.memberId = details.memberId ?? this.memberId;
           this.memberName = details.name ?? this.memberName;
-
 
           if (details.profileImage) {
             const imgType = details.profileImageType ?? 'png';

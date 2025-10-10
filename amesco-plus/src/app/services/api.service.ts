@@ -25,6 +25,22 @@ export interface ForgotPasswordRequest {
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {
+    private _cachedNotifications: any[] | null = null;
+
+    preloadNotifications(memberId: string): void {
+        this.getNotifications(memberId).subscribe({
+            next: (data) => {
+                this._cachedNotifications = data;
+            },
+            error: () => {
+                this._cachedNotifications = null;
+            }
+        });
+    }
+
+    getCachedNotifications(): any[] | null {
+        return this._cachedNotifications;
+    }
     private apiUrl = 'https://localhost:5006/api/auth';
     private tokenKey = 'jwtToken';
     private userKey = 'currentUser';

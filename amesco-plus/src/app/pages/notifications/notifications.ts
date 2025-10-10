@@ -25,6 +25,7 @@ import { trigger, transition, style, animate } from '@angular/animations';
 
 export class Notifications implements OnInit, OnDestroy {
   notifications: any[] = [];
+  loading: boolean = true;
   private notifSub?: Subscription;
   memberId: string | null = null;
 
@@ -50,12 +51,20 @@ export class Notifications implements OnInit, OnDestroy {
 
   fetchNotifications() {
     if (!this.memberId) return;
+    this.loading = true;
     this.notifSub = this.apiService.getNotifications(this.memberId).subscribe({
       next: (data) => {
-        this.notifications = data;
+        // Sort notifications by scheduledAt descending
+        this.notifications = (data || []).sort((a, b) => {
+          const dateA = new Date(a.scheduledAt).getTime();
+          const dateB = new Date(b.scheduledAt).getTime();
+          return dateB - dateA;
+        });
+        this.loading = false;
         this.cdr.detectChanges();
       },
       error: (err) => {
+        this.loading = false;
         console.error('Failed to fetch notifications:', err);
       }
     });

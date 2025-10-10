@@ -9,6 +9,12 @@
         <h1 class="title">Notifications</h1>
     </div>
     <div class="notifications-list">
+        <div *ngIf="loading" class="spinner-container">
+            <div class="spinner">
+                <div class="double-bounce1"></div>
+                <div class="double-bounce2"></div>
+            </div>
+        </div>
         <div class="notification-card" *ngFor="let notif of notifications | filterScheduledBeforeToday" @slideInRight>
             <div class="notif-image-container">
                 <img *ngIf="notif.imageBase64" [src]="'data:image/png;base64,' + notif.imageBase64"
