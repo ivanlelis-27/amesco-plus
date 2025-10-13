@@ -88,20 +88,20 @@ export class Dashboard implements OnInit, OnDestroy {
   private routerEventsSub: any;
 
   ngOnInit() {
-    // Fetch banners from backend
-    this.apiService.getAdBanners().subscribe({
-      next: (banners: any[]) => {
-        // Convert image data to base64 URLs
-        this.carouselItems = banners.map(b => ({
-          src: `data:${b.contentType};base64,${b.imageData}`,
-          alt: b.fileName
-        }));
+    // Fetch announcements from backend
+    this.apiService.getAnnouncements().subscribe({
+      next: (announcements: any[]) => {
+        // Only display the image
+        this.carouselItems = announcements.map(a => ({
+          src: a.imageBase64 ? `data:image/png;base64,${a.imageBase64}` : '',
+          alt: a.Title || ''
+        })).filter(item => item.src);
         this.cdr.detectChanges();
         this.startAutoScroll();
       },
       error: (err) => {
-        console.error('Failed to fetch banners:', err);
-        this.startAutoScroll(); // Start auto scroll even if no banners
+        console.error('Failed to fetch announcements:', err);
+        this.startAutoScroll(); // Start auto scroll even if no images
       }
     });
     this.notificationsChecked = false;

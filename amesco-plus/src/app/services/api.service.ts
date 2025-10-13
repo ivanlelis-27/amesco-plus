@@ -88,8 +88,9 @@ export class ApiService {
         }
     }
 
-    getAdBanners(): Observable<any[]> {
-        return this.http.get<any[]>('https://localhost:5006/api/adbanners');
+
+    getAnnouncements(): Observable<any[]> {
+        return this.http.get<any[]>('https://localhost:5006/api/announcements');
     }
 
     getUserTransactions(memberId: string): Observable<any[]> {
