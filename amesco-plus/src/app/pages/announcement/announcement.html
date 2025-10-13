@@ -1,0 +1,33 @@
+<div class="announcement-page">
+    <div class="header">
+        <button class="back-btn" (click)="goBack()">
+            <ion-icon name="chevron-back-outline"></ion-icon>
+        </button>
+        <div class="title-container">
+            <span class="title">{{ announcement?.title }}</span>
+        </div>
+    </div>
+    <div class="image-container">
+        <img *ngIf="announcement?.imageBase64" [src]="'data:image/png;base64,' + announcement.imageBase64"
+            class="announcement-image" />
+        <div *ngIf="!announcement?.imageBase64" class="announcement-image-blank">No image</div>
+    </div>
+    <div class="products-list">
+        <div *ngIf="promosLoading" class="no-items">Loading promos...</div>
+        <div *ngIf="!promosLoading && promoProducts.length === 0" class="no-items">No List Items</div>
+        <div *ngIf="!promosLoading && promoProducts.length > 0" class="promo-list">
+            <div *ngFor="let promo of promoProducts" class="promo-card">
+                <div class="promo-image-container">
+                    <img *ngIf="promo.imageBase64" [src]="'data:image/png;base64,' + promo.imageBase64"
+                        class="promo-image" />
+                    <div *ngIf="!promo.imageBase64" class="promo-image-blank">No image</div>
+                </div>
+                <div class="promo-details">
+                    <div class="promo-name">{{ promo.brandItemName }}</div>
+                    <div class="promo-price">₱{{ promo.price }}</div>
+                    <div class="promo-unit">{{ promo.unit }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

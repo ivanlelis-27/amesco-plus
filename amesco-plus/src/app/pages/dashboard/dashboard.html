@@ -70,8 +70,10 @@
                 <ion-icon name="chevron-back-outline"></ion-icon>
             </button>
             <div class="carousel-track" [style.transform]="trackTransform">
-                <div class="carousel-slide" *ngFor="let item of carouselItems" [style.width.%]="100">
-                    <img [src]="item.src" [alt]="item.alt" class="carousel-image" />
+                <div class="carousel-slide" *ngFor="let item of carouselItems" [style.width.%]="100"
+                    style="cursor:pointer;">
+                    <img [src]="item.src" [alt]="item.alt" class="carousel-image" (click)="goToAnnouncement(item.id)"
+                        style="cursor:pointer;" />
                 </div>
             </div>
             <!-- Carousel indicators -->

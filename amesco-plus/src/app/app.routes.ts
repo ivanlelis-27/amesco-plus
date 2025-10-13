@@ -22,6 +22,7 @@ import { Congratulations } from './pages/congratulations/congratulations';
 import { EarnedPoints } from './pages/earned-points/earned-points';
 import { UnusedVouchers } from './pages/unused-vouchers/unused-vouchers';
 import { UsedVouchers } from './pages/used-vouchers/used-vouchers';
+import { Announcement } from './pages/announcement/announcement';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'welcome', pathMatch: 'full' },
@@ -47,5 +48,6 @@ export const routes: Routes = [
   { path: 'congratulations', component: Congratulations },
   { path: 'earned-points', component: EarnedPoints },
   { path: 'unused-vouchers', component: UnusedVouchers },
-  { path: 'used-vouchers', component: UsedVouchers }
+  { path: 'used-vouchers', component: UsedVouchers },
+  { path: 'announcement/:id', component: Announcement }
 ];

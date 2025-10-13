@@ -91,10 +91,11 @@ export class Dashboard implements OnInit, OnDestroy {
     // Fetch announcements from backend
     this.apiService.getAnnouncements().subscribe({
       next: (announcements: any[]) => {
-        // Only display the image
+        // Only display the image, include id for navigation
         this.carouselItems = announcements.map(a => ({
           src: a.imageBase64 ? `data:image/png;base64,${a.imageBase64}` : '',
-          alt: a.Title || ''
+          alt: a.Title || '',
+          id: a.announcementId || a.AnnouncementId
         })).filter(item => item.src);
         this.cdr.detectChanges();
         this.startAutoScroll();
@@ -113,6 +114,12 @@ export class Dashboard implements OnInit, OnDestroy {
         this.updateNotificationCount();
       }
     });
+  }
+
+  goToAnnouncement(id: any) {
+    console.log('Announcement clicked:', id);
+    if (id === undefined || id === null) return;
+    this.router.navigate([`/announcement/${id}`]);
   }
 
   ngOnDestroy() {

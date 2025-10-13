@@ -88,9 +88,16 @@ export class ApiService {
         }
     }
 
-
     getAnnouncements(): Observable<any[]> {
         return this.http.get<any[]>('https://localhost:5006/api/announcements');
+    }
+
+    getAnnouncementById(id: string): Observable<any> {
+        return this.http.get<any>(`https://localhost:5006/api/announcements/${id}`);
+    }
+
+    getAnnouncementPromos(id: string | number): Observable<any[]> {
+        return this.http.get<any[]>(`https://localhost:5006/api/announcements/${id}/promos`);
     }
 
     getUserTransactions(memberId: string): Observable<any[]> {
