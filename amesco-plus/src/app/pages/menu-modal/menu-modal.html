@@ -26,9 +26,24 @@
             <fa-icon [icon]="faTimesCircle"></fa-icon>
             <span>Unsubscribe (delete account)</span>
         </button>
-        <button class="menu-row">
+        <button class="menu-row" (click)="showLogoutModal()">
             <fa-icon [icon]="faSignOutAlt"></fa-icon>
             <span>Logout</span>
         </button>
+    </div>
+
+    <div *ngIf="showLogoutConfirm" class="logout-modal-backdrop">
+        <div class="logout-modal-sheet">
+            <div class="logout-modal-title">Confirm Logout</div>
+            <div class="logout-modal-desc">Are you sure you want to logout?</div>
+            <div class="logout-modal-actions">
+                <button class="logout-btn confirm" [disabled]="logoutLoading" (click)="confirmLogout()">
+                    Yes
+                </button>
+                <button class="logout-btn cancel" [disabled]="logoutLoading" (click)="hideLogoutModal()">
+                    No
+                </button>
+            </div>
+        </div>
     </div>
 </div>

@@ -177,6 +177,12 @@ export class ApiService {
         return this.http.delete(`${this.apiUrl}/unsubscribe`, { headers });
     }
 
+    logout(): Observable<any> {
+        const token = this.getToken();
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+        return this.http.post('https://localhost:5006/api/auth/logout', {}, { headers });
+    }
+
     clearSession() {
         localStorage.removeItem(this.tokenKey);
         localStorage.removeItem(this.userKey);

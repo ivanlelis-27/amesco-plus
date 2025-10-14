@@ -2,6 +2,7 @@ import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { faStore, faClipboardList, faBookOpen, faFingerprint, faEnvelope, faTimesCircle, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-menu-modal',
@@ -21,7 +22,9 @@ import { trigger, transition, style, animate } from '@angular/animations';
   ]
 })
 export class MenuModal {
-  constructor(private router: Router) { }
+  constructor(private router: Router, private apiService: ApiService) { }
+  showLogoutConfirm = false;
+  logoutLoading = false;
   @Input() closingMenu = false;
   @Output() animationDone = new EventEmitter<any>();
   @Output() close = new EventEmitter<void>();
@@ -36,6 +39,29 @@ export class MenuModal {
 
   closeMenu() {
     this.close.emit();
+  }
+
+  showLogoutModal() {
+    this.showLogoutConfirm = true;
+  }
+
+  hideLogoutModal() {
+    this.showLogoutConfirm = false;
+  }
+
+  confirmLogout() {
+    this.logoutLoading = true;
+    this.apiService.logout().subscribe({
+      next: () => {
+        this.apiService.clearSession();
+        this.logoutLoading = false;
+        this.router.navigate(['/login']);
+      },
+      error: () => {
+        this.logoutLoading = false;
+        this.router.navigate(['/login']);
+      }
+    });
   }
 
   onAnimationDone(event: any) {
