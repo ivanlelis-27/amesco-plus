@@ -151,7 +151,7 @@ export class Dashboard implements OnInit, OnDestroy {
     const userId = user?.sub || null;
     if (!userId) return;
 
-    // Get read notification IDs from cookies (user-specific key)
+    // Get read notification IDs from cookies
     const readIds: number[] = JSON.parse(getCookie(`readNotificationIds_${userId}`) || '[]');
     this.apiService.getNotifications(userId).subscribe({
       next: (data) => {
@@ -233,7 +233,7 @@ export class Dashboard implements OnInit, OnDestroy {
         const todayMonth = now.getMonth();
         const todayDate = now.getDate();
 
-        // Get current read IDs (user-specific key)
+        // Get current read IDs
         const readIds: number[] = JSON.parse(getCookie(`readNotificationIds_${userId}`) || '[]');
 
         // Find all visible notification IDs

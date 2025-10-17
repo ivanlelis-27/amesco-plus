@@ -109,6 +109,18 @@ export class ApiService {
         }
     }
 
+    isTokenValid(): boolean {
+        const token = this.getToken();
+        if (!token) return false;
+        const decoded: any = this.getUserFromToken();
+        if (!decoded) return false;
+        // exp is usually in seconds since epoch
+        const exp = decoded.exp as number | undefined;
+        if (!exp) return false;
+        const now = Math.floor(Date.now() / 1000);
+        return exp > now;
+    }
+
     getAnnouncements(): Observable<any[]> {
         return this.http.get<any[]>('https://localhost:5006/api/announcements');
     }

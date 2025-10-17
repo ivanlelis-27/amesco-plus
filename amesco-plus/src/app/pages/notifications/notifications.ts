@@ -54,7 +54,7 @@ export class Notifications implements OnInit, OnDestroy {
     this.loading = true;
     this.notifSub = this.apiService.getNotifications(this.memberId).subscribe({
       next: (data) => {
-        // Sort notifications by scheduledAt descending
+        // Sort notifications by scheduled date; descending
         this.notifications = (data || []).sort((a, b) => {
           const dateA = new Date(a.scheduledAt).getTime();
           const dateB = new Date(b.scheduledAt).getTime();
@@ -104,10 +104,9 @@ export class Notifications implements OnInit, OnDestroy {
       notif.liked = false;
       this.apiService.unlikeNotification(notificationId, this.memberId).subscribe({
         next: () => {
-          // Optionally handle success
         },
         error: (err) => {
-          notif.liked = true; // revert if error
+          notif.liked = true; 
           console.error('Failed to unlike notification:', err);
         }
       });
@@ -116,10 +115,9 @@ export class Notifications implements OnInit, OnDestroy {
       notif.liked = true;
       this.apiService.likeNotification(notificationId, this.memberId).subscribe({
         next: () => {
-          // Optionally handle success
         },
         error: (err) => {
-          notif.liked = false; // revert if error
+          notif.liked = false;
           console.error('Failed to like notification:', err);
         }
       });

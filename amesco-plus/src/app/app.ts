@@ -32,26 +32,29 @@ export class App implements OnInit, OnDestroy {
     const token = this.apiService.getToken();
 
     if (token) {
-      // Validate the current session
+      // If token exists, check locally first for expiry
+      const tokenValid = this.apiService.isTokenValid();
+      if (!tokenValid) {
+        // token expired or invalid locally — clear and redirect to welcome
+        this.apiService.clearSession();
+        this.router.navigate(['/welcome']);
+        return;
+      }
+
+      // Token appears valid locally — validate session server-side
       const isSessionValid = await this.sessionService.validateCurrentSession();
 
       if (isSessionValid) {
         // Session is valid, start monitoring
         this.sessionService.startSessionMonitoring();
 
-        // Only redirect automatically if the user previously opted into auto-login
-        // (set localStorage 'autoLogin' = 'true' at login time). This prevents
-        // unexpected automatic sign-in on app start.
-        const autoLogin = (typeof window !== 'undefined' && typeof window.localStorage !== 'undefined')
-          ? localStorage.getItem('autoLogin') === 'true'
-          : false;
-        if (autoLogin && (this.router.url === '/welcome' || this.router.url === '/')) {
+        // If user is on public landing, redirect to dashboard
+        if (this.router.url === '/welcome' || this.router.url === '/') {
           this.router.navigate(['/dashboard']);
         }
       }
-      // If session is invalid, validateCurrentSession already handles redirect to welcome
     } else {
-      // No token, ensure user is on a public page
+      // No token, ensure user is on Welcome page
       const currentUrl = this.router.url;
       const publicPages = ['/welcome', '/login', '/register', '/membercheck', '/forgot-password', '/email-sent', '/privacy', '/terms'];
 

@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 export class ToastService {
-    // modern DOM-based toast - browser only and SSR-safe
+    // DOM-based toast notification 
+    // implemented this instead of the usual toast i was using before in flutter/dart since im testing the app in browser
     show(message: string, duration = 4500) {
         if (typeof window === 'undefined' || typeof document === 'undefined' || !document.body) return;
 
         // load the template from assets (browser only)
         const assetUrl = (() => {
             try {
-                // use document.baseURI so it works under a non-root base href
                 return new URL('/toast.html', document.baseURI).href;
             } catch (e) {
                 return './assets/toast.html';
@@ -44,7 +44,6 @@ export class ToastService {
                 const toastEl = container.querySelector('.toast') as HTMLElement | null;
                 const closeBtn = container.querySelector('.toast__close') as HTMLElement | null;
 
-                // animate in
                 requestAnimationFrame(() => { container.style.opacity = '1'; container.style.transform = 'translateY(0)'; });
 
                 const hide = () => {
@@ -59,7 +58,7 @@ export class ToastService {
                 container.addEventListener('mouseenter', () => { clearTimeout(hideTimeout); });
                 container.addEventListener('mouseleave', () => { hideTimeout = setTimeout(hide, 1800); });
             } catch (e) {
-                // fallback: simple alert
+                //fallback alert
                 try { alert(message); } catch { }
             }
         }).catch(() => {

@@ -7,8 +7,6 @@ import { ToastService } from './toast.service';
 @Injectable({ providedIn: 'root' })
 export class SessionService {
     private sessionCheckInterval: any;
-    // shorten the polling interval to 2s to make invalidation detection near-instant
-    // if SSE / push is not available. Change with care (tradeoff: more requests).
     private readonly SESSION_CHECK_INTERVAL = 2000; // Check every 2 seconds
     private eventSource: any | null = null;
 
@@ -25,7 +23,7 @@ export class SessionService {
 
         // Only start monitoring if user has a token
         if (this.apiService.getToken()) {
-            // Start server-sent-events listener for instant invalidation (browser only)
+            // Start server-sent-events listener for instant invalidation
             this.startSseListener();
 
             // run an immediate check and then start the interval as fallback
@@ -46,7 +44,6 @@ export class SessionService {
             try {
                 this.eventSource.close();
             } catch (e) {
-                // ignore
             }
             this.eventSource = null;
         }
@@ -61,7 +58,7 @@ export class SessionService {
         this.apiService.checkSessionStatus().pipe(
             catchError(error => {
                 console.log('Session check failed:', error);
-                // If the request fails (401, 403, etc.), treat as invalid session
+                // If the request fails, treat as invalid session
                 this.handleInvalidSession();
                 return of({ isValid: false });
             }),
@@ -74,7 +71,6 @@ export class SessionService {
     }
 
     // SSE: Server-Sent Events listener to get instant session invalidation notifications.
-    // Backend should expose an SSE endpoint that sends an event when the user's session is invalidated.
     private startSseListener(): void {
         // Only run in browser
         if (typeof window === 'undefined' || typeof window.EventSource === 'undefined') return;
@@ -87,7 +83,6 @@ export class SessionService {
         if (!userId) return;
 
         try {
-            // Use a relative path so it works across environments; backend must implement this
             const url = `/api/sessions/events?userId=${encodeURIComponent(userId)}`;
             this.eventSource = new EventSource(url);
 
@@ -96,7 +91,6 @@ export class SessionService {
             });
 
             this.eventSource.addEventListener('message', (evt: any) => {
-                // Expect server to send JSON or simple 'invalid' message
                 try {
                     const data = evt.data;
                     if (!data) return;
@@ -135,13 +129,10 @@ export class SessionService {
                 window.sessionStorage.setItem('session_invalidated', '1');
             }
         } catch (e) {
-            // ignore
         }
 
-        // prefer immediate navigation that doesn't wait for Angular change detection
         try {
             if (typeof window !== 'undefined' && window.location) {
-                // replace so back button doesn't return to invalid state
                 window.location.replace('/welcome');
                 return;
             }
@@ -152,22 +143,21 @@ export class SessionService {
         this.router.navigate(['/welcome']);
     }
 
-    // Public wrapper so other parts (like an HTTP interceptor) can force invalidation
     invalidateSession(): void {
         this.handleInvalidSession();
     }
 
-    // Call this method when user logs in successfully
+    // Call this method when user logs in successfully; starts session monitoring
     onUserLogin(): void {
         this.startSessionMonitoring();
     }
 
-    // Call this method when user logs out
+    // Call this method when user logs out; stops session monitoring
     onUserLogout(): void {
         this.stopSessionMonitoring();
     }
 
-    // Check session immediately (useful for app initialization)
+    // Check session immediately
     validateCurrentSession(): Promise<boolean> {
         return new Promise((resolve) => {
             if (!this.apiService.getToken()) {

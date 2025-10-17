@@ -22,7 +22,7 @@ export class EarnedPoints implements OnInit, OnDestroy {
 
     this.loadTransactions();
 
-    // reload every time we come back to this route
+    // reload every time we come back to this page to get latest data
     this.sub = this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd && event.urlAfterRedirects.includes('earned-points')) {
         this.loadTransactions();
