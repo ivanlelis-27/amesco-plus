@@ -43,19 +43,33 @@ export class ApiService {
     }
     private apiUrl = 'https://localhost:5006/api/auth';
     private tokenKey = 'jwtToken';
+    private sessionKey = 'sessionId';
     private userKey = 'currentUser';
 
     constructor(private http: HttpClient) { }
 
     setToken(token: string) {
+        if (typeof window === 'undefined' || typeof window.localStorage === 'undefined') return;
         localStorage.setItem(this.tokenKey, token);
     }
 
     getToken(): string | null {
+        if (typeof window === 'undefined' || typeof window.localStorage === 'undefined') return null;
         return localStorage.getItem(this.tokenKey);
     }
 
+    setSessionId(sessionId: string) {
+        if (typeof window === 'undefined' || typeof window.localStorage === 'undefined') return;
+        localStorage.setItem(this.sessionKey, sessionId);
+    }
+
+    getSessionId(): string | null {
+        if (typeof window === 'undefined' || typeof window.localStorage === 'undefined') return null;
+        return localStorage.getItem(this.sessionKey);
+    }
+
     setUser(user: any) {
+        if (typeof window === 'undefined' || typeof window.localStorage === 'undefined') return;
         localStorage.setItem(this.userKey, JSON.stringify(user));
     }
 
@@ -67,6 +81,7 @@ export class ApiService {
 
 
     getUser(): any {
+        if (typeof window === 'undefined' || typeof window.localStorage === 'undefined') return null;
         const user = localStorage.getItem(this.userKey);
         return user ? JSON.parse(user) : null;
     }
@@ -75,6 +90,12 @@ export class ApiService {
         const token = this.getToken();
         const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
         return this.http.get<any>('https://localhost:5006/api/users/me', { headers });
+    }
+
+    checkSessionStatus(): Observable<{ isValid: boolean; message?: string }> {
+        const token = this.getToken();
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+        return this.http.get<{ isValid: boolean; message?: string }>(`${this.apiUrl}/session-status`, { headers });
     }
 
 
@@ -184,7 +205,9 @@ export class ApiService {
     }
 
     clearSession() {
+        if (typeof window === 'undefined' || typeof window.localStorage === 'undefined') return;
         localStorage.removeItem(this.tokenKey);
+        localStorage.removeItem(this.sessionKey);
         localStorage.removeItem(this.userKey);
     }
 
@@ -200,8 +223,8 @@ export class ApiService {
         return this.http.get<{ memberId: string }>('https://localhost:5006/api/auth/generate-memberid');
     }
 
-    login(data: LoginRequest): Observable<{ token: string }> {
-        return this.http.post<{ token: string }>(`${this.apiUrl}/login`, data);
+    login(data: LoginRequest): Observable<{ token: string; sessionId: string }> {
+        return this.http.post<{ token: string; sessionId: string }>(`${this.apiUrl}/login`, data);
     }
 
     forgotPassword(data: ForgotPasswordRequest): Observable<any> {

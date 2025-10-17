@@ -3,6 +3,7 @@ import { faStore, faClipboardList, faBookOpen, faFingerprint, faEnvelope, faTime
 import { Router } from '@angular/router';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { ApiService } from '../../services/api.service';
+import { SessionService } from '../../services/session.service';
 
 @Component({
   selector: 'app-menu-modal',
@@ -22,7 +23,11 @@ import { ApiService } from '../../services/api.service';
   ]
 })
 export class MenuModal {
-  constructor(private router: Router, private apiService: ApiService) { }
+  constructor(
+    private router: Router,
+    private apiService: ApiService,
+    private sessionService: SessionService
+  ) { }
   showLogoutConfirm = false;
   logoutLoading = false;
   @Input() closingMenu = false;
@@ -54,10 +59,14 @@ export class MenuModal {
     this.apiService.logout().subscribe({
       next: () => {
         this.apiService.clearSession();
+        // stop session monitoring when the user logs out
+        this.sessionService.onUserLogout();
         this.logoutLoading = false;
         this.router.navigate(['/login']);
       },
       error: () => {
+        // ensure monitoring is stopped even if server logout fails
+        this.sessionService.onUserLogout();
         this.logoutLoading = false;
         this.router.navigate(['/login']);
       }

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ValidationService } from '../../validations/login-validation';
 import { ApiService, LoginRequest } from '../../services/api.service';
+import { SessionService } from '../../services/session.service';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,12 @@ export class Login {
     this.showPassword = !this.showPassword;
   }
 
-  constructor(private router: Router, private validationService: ValidationService, private apiService: ApiService) { }
+  constructor(
+    private router: Router,
+    private validationService: ValidationService,
+    private apiService: ApiService,
+    private sessionService: SessionService
+  ) { }
 
   goToMemberCheck() {
     this.router.navigate(['/membercheck']);
@@ -42,11 +48,17 @@ export class Login {
     const loginData: LoginRequest = { email: this.email, password: this.password };
     this.apiService.login(loginData).subscribe({
       next: (response) => {
-        if (response.token) {
-          localStorage.setItem('jwtToken', response.token);
+        if (response.token && response.sessionId) {
+          // Store both token and sessionId
+          this.apiService.setToken(response.token);
+          this.apiService.setSessionId(response.sessionId);
+
+          // Start session monitoring
+          this.sessionService.onUserLogin();
+
           this.goToDashboard();
         } else {
-          alert('Login failed: No token received.');
+          alert('Login failed: No token or session ID received.');
         }
       },
       error: (err) => {
