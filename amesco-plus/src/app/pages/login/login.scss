@@ -56,21 +56,21 @@
   }
 
   .form-group {
-    margin-bottom: 0.8rem; 
+    margin-bottom: 0.8rem;
 
     label {
       display: block;
-      margin-bottom: 0.3rem; 
+      margin-bottom: 0.3rem;
       font-size: 0.95rem;
       font-weight: 500;
       color: #222;
     }
 
     input {
-      width: 90%;
-      padding: 0.7rem; 
+      width: 100%;
+      padding: 0.7rem;
       border: 1px solid #ddd;
-      border-radius: 0.7rem; 
+      border-radius: 0.7rem;
       font-size: 0.93rem;
 
       &:focus {
@@ -85,7 +85,7 @@
 
     input {
       width: 100%;
-      padding-right: 2.5rem; 
+      padding-right: 2.5rem;
       box-sizing: border-box;
     }
 
@@ -111,7 +111,7 @@
 
   .btn-primary {
     width: 100%;
-    padding: 0.8rem; 
+    padding: 0.8rem;
     border: none;
     border-radius: 0.7rem;
     background: #B50F23;

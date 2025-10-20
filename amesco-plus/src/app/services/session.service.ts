@@ -7,7 +7,7 @@ import { ToastService } from './toast.service';
 @Injectable({ providedIn: 'root' })
 export class SessionService {
     private sessionCheckInterval: any;
-    private readonly SESSION_CHECK_INTERVAL = 2000; // Check every 2 seconds
+    private readonly SESSION_CHECK_INTERVAL = 10000; // Check every 10 seconds
     private eventSource: any | null = null;
 
     constructor(
