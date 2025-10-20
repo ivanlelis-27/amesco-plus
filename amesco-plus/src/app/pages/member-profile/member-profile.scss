@@ -472,3 +472,73 @@ body {
     padding: 2.5rem;
     background: #B10D17;
 }
+
+/* Reuse menu-modal styles for logout confirmation so appearance is consistent */
+
+/* Backdrop for centered logout modal (matches menu-modal backdrop) */
+.logout-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.22);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Modal sheet for centered logout confirmation (reuses menu-modal sheet visual style) */
+.logout-modal-sheet {
+    background: #fff;
+    border-radius: 1.2rem;
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.13);
+    padding: 2rem 2.2rem 1.5rem 2.2rem;
+    min-width: 280px;
+    max-width: 90vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.logout-modal-title {
+    font-size: 1.18rem;
+    font-weight: 700;
+    color: #B10D17;
+    margin-bottom: 0.7rem;
+}
+
+.logout-modal-desc {
+    font-size: 1.05rem;
+    color: #444;
+    margin-bottom: 1.2rem;
+    text-align: center;
+}
+
+.logout-modal-actions {
+    display: flex;
+    gap: 1.2rem;
+}
+
+.logout-btn {
+    padding: 0.5rem 1.5rem;
+    border-radius: 0.5rem;
+    border: none;
+    font-size: 1.05rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.18s;
+}
+
+.logout-btn.confirm {
+    background: #B10D17;
+    color: #fff;
+}
+
+.logout-btn.cancel {
+    background: #eee;
+    color: #B10D17;
+}
+
+.logout-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}

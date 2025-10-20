@@ -13,6 +13,22 @@
             <span class="points-value">{{ points }}</span>
             <span class="points-label">Points</span>
         </div>
+
+        <!-- Logout confirmation modal (shared style from menu-modal) -->
+        <div *ngIf="showLogoutConfirm" class="logout-modal-backdrop">
+            <div class="logout-modal-sheet">
+                <div class="logout-modal-title">Confirm Logout</div>
+                <div class="logout-modal-desc">Are you sure you want to logout?</div>
+                <div class="logout-modal-actions">
+                    <button class="logout-btn confirm" [disabled]="logoutLoading" (click)="confirmLogout()">
+                        Yes
+                    </button>
+                    <button class="logout-btn cancel" [disabled]="logoutLoading" (click)="hideLogoutConfirm()">
+                        No
+                    </button>
+                </div>
+            </div>
+        </div>
         <div class="user-profile">
             <div class="outer-yellow-circle">
                 <div class="inner-yellow-circle" (click)="openModal()">

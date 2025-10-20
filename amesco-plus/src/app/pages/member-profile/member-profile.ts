@@ -4,6 +4,7 @@ import { faImage, faPen, faUser, faMobileAlt, faEnvelope, faClipboardList, faBoo
 import { ChangeDetectorRef } from '@angular/core';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { ApiService } from '../../services/api.service';
+import { SessionService } from '../../services/session.service';
 
 @Component({
   selector: 'app-member-profile',
@@ -27,6 +28,7 @@ export class MemberProfile {
     private router: Router,
     private cdr: ChangeDetectorRef,
     private apiService: ApiService
+    , private sessionService: SessionService
   ) {
     this.apiService.getCurrentUserDetails().subscribe({
       next: (details: any) => {
@@ -51,6 +53,8 @@ export class MemberProfile {
     });
   }
   isEditing = false;
+  showLogoutConfirm = false;
+  logoutLoading = false;
   name = '';
   mobile = '';
   email = '';
@@ -89,6 +93,30 @@ export class MemberProfile {
   }
 
   onLogout() {
+    // open the shared confirmation modal
+    this.showLogoutConfirm = true;
+  }
+
+  hideLogoutConfirm() {
+    this.showLogoutConfirm = false;
+  }
+
+  confirmLogout() {
+    this.logoutLoading = true;
+    this.apiService.logout().subscribe({
+      next: () => {
+        this.apiService.clearSession();
+        this.sessionService.onUserLogout();
+        this.logoutLoading = false;
+        this.router.navigate(['/login']);
+      },
+      error: () => {
+        this.apiService.clearSession();
+        this.sessionService.onUserLogout();
+        this.logoutLoading = false;
+        this.router.navigate(['/login']);
+      }
+    });
   }
 
   onEdit() {
