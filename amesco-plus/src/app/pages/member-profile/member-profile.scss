@@ -271,6 +271,49 @@ body {
     width: 45%;
 }
 
+.name-edit-row {
+    display: flex;
+    gap: 0.5rem;
+    width: 100%;
+    align-items: center;
+    flex: 1 1 auto;
+}
+
+.name-edit-row .name-first,
+.name-edit-row .name-last {
+    flex: 1;
+    font-size: 1rem;
+    padding: 0.45rem 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 0.3rem;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+    &:focus {
+        border-color: #0078d7;
+        box-shadow: 0 0 3px rgba(0, 120, 215, 0.3);
+    }
+}
+
+.name-edit-row .name-first,
+.name-edit-row .name-last {
+    margin: 0;
+    min-width: 0;
+}
+
+@media (max-width: 480px) {
+    .name-edit-row {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .name-edit-row .name-first,
+    .name-edit-row .name-last {
+        flex: 1 1 100%;
+        width: 100%;
+    }
+}
+
 .edit-action-icons {
     display: flex;
     gap: 0.7rem;
@@ -310,14 +353,94 @@ body {
     border: none;
     width: 100%;
     text-align: left;
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    column-gap: 0.8rem;
     font-size: 1rem;
     color: #444;
     margin-bottom: 1rem;
     cursor: pointer;
     padding: 0;
+}
+
+.icon-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* Make standalone inputs (mobile, email) fill content column */
+    .info-row .edit-input {
+        width: 100%;
+        box-sizing: border-box;
+        min-width: 0;
+    }
+
+    /* Keep the two name inputs side-by-side inside the content column */
+    .name-edit-row {
+        display: flex;
+        gap: 0.5rem;
+        width: 100%;
+        align-items: center;
+    }
+
+    .name-edit-row .name-first,
+    .name-edit-row .name-last {
+        flex: 1 1 50%;
+        min-width: 0;
+    }
+}
+
+.info-row .edit-input,
+.info-row .name-edit-row {
+    flex: 1 1 auto;
+    min-width: 0;
+    /* allow shrinking to avoid wrapping */
+}
+
+.name-edit-row .name-first,
+.name-edit-row .name-last {
+    flex: 1 1 50%;
+    width: 50%;
+}
+
+@media (max-width: 360px) {
+    .name-edit-row {
+        flex-direction: column;
+    }
+
+    .name-edit-row .name-first,
+    .name-edit-row .name-last {
+        width: 100%;
+        flex: 1 1 100%;
+    }
+}
+
+/* Strong override: use a grid inside the name-edit area so the two inputs reliably sit side-by-side */
+.name-edit-row {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 0.5rem;
+    align-items: center;
+}
+
+.name-edit-row .edit-input,
+.name-edit-row input,
+.name-edit-row .name-first,
+.name-edit-row .name-last {
+    width: 100% !important;
+    box-sizing: border-box;
+}
+
+@media (max-width: 360px) {
+    .name-edit-row {
+        display: block !important;
+    }
+
+    .name-edit-row .name-first,
+    .name-edit-row .name-last {
+        width: 100% !important;
+        display: block;
+    }
 }
 
 .info-row:focus {

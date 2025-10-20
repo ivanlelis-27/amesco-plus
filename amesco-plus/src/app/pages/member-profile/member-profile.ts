@@ -100,7 +100,36 @@ export class MemberProfile {
   }
 
   onSaveEdit() {
-    this.isEditing = false;
+    // prepare DTO by splitting name into first and last
+    const parts = (this.name || '').trim().split(/\s+/);
+    const firstName = parts.length ? parts[0] : '';
+    const lastName = parts.length > 1 ? parts.slice(1).join(' ') : '';
+
+    const dto: any = {
+      FirstName: firstName,
+      LastName: lastName,
+      Mobile: this.mobile
+    };
+
+    this.apiService.updateMe(dto).subscribe({
+      next: (res) => {
+        // Update local data from server response
+        this.name = `${res.firstName || firstName}${res.lastName ? ' ' + res.lastName : ''}`.trim();
+        this.mobile = res.mobile || this.mobile;
+        this.isEditing = false;
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.error('Failed to update profile', err);
+        if (err && err.status === 401) {
+          // session invalidated or unauthorized - clear session and send to welcome
+          this.apiService.clearSession();
+          window.location.replace('/welcome');
+          return;
+        }
+        alert('Failed to save changes.');
+      }
+    });
   }
 
   showModal = false;

@@ -23,6 +23,12 @@ export interface ForgotPasswordRequest {
     email: string;
 }
 
+export interface UpdateMeRequest {
+    FirstName?: string;
+    LastName?: string;
+    Mobile?: string;
+}
+
 @Injectable({ providedIn: 'root' })
 export class ApiService {
     private _cachedNotifications: any[] | null = null;
@@ -241,5 +247,26 @@ export class ApiService {
 
     forgotPassword(data: ForgotPasswordRequest): Observable<any> {
         return this.http.post(`${this.apiUrl}/forgot-password`, data);
+    }
+
+    updateMe(data: UpdateMeRequest): Observable<any> {
+        const token = this.getToken();
+        const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+        // Try to get a numeric user id from the token. Different backends accept either
+        // PUT /api/users/me or PUT /api/users/{id}. If a numeric id exists, call that route
+        // and include MemberId in the body to satisfy validation that requires it.
+        const decoded: any = this.getUserFromToken();
+        const possibleId = decoded?.memberId || decoded?.id || decoded?.sub || null;
+        const numericId = possibleId && !isNaN(Number(possibleId)) ? String(possibleId) : null;
+
+        const body: any = { ...data };
+        if (numericId) body.MemberId = numericId;
+
+        const url = numericId
+            ? `https://localhost:5006/api/users/${numericId}`
+            : 'https://localhost:5006/api/users/me';
+
+        return this.http.put<any>(url, body, { headers });
     }
 }

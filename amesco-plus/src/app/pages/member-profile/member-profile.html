@@ -59,16 +59,26 @@
                 </ng-template>
             </div>
             <div class="info-row">
-                <fa-icon [icon]="faUser"></fa-icon>
+                <div class="icon-wrap"><fa-icon [icon]="faUser"></fa-icon></div>
                 <ng-container *ngIf="isEditing; else showName">
-                    <input type="text" [(ngModel)]="name" placeholder="Name" class="edit-input" />
+                    <div class="name-edit-row">
+                        <!-- Split the existing `name` string into first/last in the template.
+                             We keep the component class unchanged by managing the split/join here using
+                             template bindings and (ngModelChange) to recombine into `name`. -->
+                        <input type="text" [ngModel]="(name || '').split(' ')[0] || ''"
+                            (ngModelChange)="name = ($event + ' ' + ((name || '').split(' ').slice(1).join(' ') || '')).trim()"
+                            placeholder="First name" class="edit-input name-first" />
+                        <input type="text" [ngModel]="((name || '').split(' ').slice(1).join(' ')) || ''"
+                            (ngModelChange)="name = (((name || '').split(' ')[0] || '') + ' ' + $event).trim()"
+                            placeholder="Last name" class="edit-input name-last" />
+                    </div>
                 </ng-container>
                 <ng-template #showName>
                     <span class="info-text">{{ name }}</span>
                 </ng-template>
             </div>
             <div class="info-row">
-                <fa-icon [icon]="faMobileAlt"></fa-icon>
+                <div class="icon-wrap"><fa-icon [icon]="faMobileAlt"></fa-icon></div>
                 <ng-container *ngIf="isEditing; else showMobile">
                     <input type="text" [(ngModel)]="mobile" placeholder="Mobile Number" class="edit-input" />
                 </ng-container>
@@ -77,7 +87,7 @@
                 </ng-template>
             </div>
             <div class="info-row">
-                <fa-icon [icon]="faEnvelope"></fa-icon>
+                <div class="icon-wrap"><fa-icon [icon]="faEnvelope"></fa-icon></div>
                 <span class="info-text">{{ email }}</span>
             </div>
         </div>
